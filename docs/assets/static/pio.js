@@ -8,6 +8,9 @@
 
 本代码为奇趣保罗原创，并遵守 GPL 2.0 开源协议。欢迎访问我的博客：https://paugram.com
 
+# jupiterbjy - edited to add extra elements and change lines to eng.
+# All right reserved to original author Dreamer-Paul.
+
 ---- */
 
 var Paul_Pio = function (prop) {
@@ -75,7 +78,8 @@ var Paul_Pio = function (prop) {
         skin: modules.create("span", {class: "pio-skin"}),
         info: modules.create("span", {class: "pio-info"}),
         night: modules.create("span", {class: "pio-night"}),
-        close: modules.create("span", {class: "pio-close"})
+        close: modules.create("span", {class: "pio-close"}),
+        test_: modules.create("span", {class: "pio-test"})
     };
 
     var dialog = modules.create("div", {class: "pio-dialog"});
@@ -137,7 +141,7 @@ var Paul_Pio = function (prop) {
         buttons: function () {
             // 返回首页
             elements.home.onclick = function () {
-                location.href = current.root;
+                location.href = "/"
             };
             elements.home.onmouseover = function () {
                 modules.render(prop.content.home || "点击这里回到首页！");
@@ -182,6 +186,14 @@ var Paul_Pio = function (prop) {
                 modules.render(prop.content.close || "QWQ 下次再见吧~");
             };
             current.menu.appendChild(elements.close);
+
+            elements.test_.onclick = function () {
+                location.href =  "/Brython"
+            }
+            elements.test_.onmouseover = function () {
+                modules.render("Wanna try out Brython?");
+            };
+            current.menu.appendChild(elements.test_)
         },
         custom: function () {
             prop.content.custom.forEach(function (t) {
