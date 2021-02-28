@@ -87,7 +87,7 @@
 
 #pio{ vertical-align: middle }
 
-@media screen and (max-width: 768px){
+@media screen{
     #pio{ width: 8em }
     .pio-container{ pointer-events: none }
 }
