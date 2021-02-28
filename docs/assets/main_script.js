@@ -8,7 +8,7 @@ function load() {
     return new Paul_Pio(
         {
             "mode": "fixed",
-            "hidden": true,
+            "hidden": false,
             "content": {
                 "welcome": ["Hi!"],
                 "custom": [
@@ -18,7 +18,6 @@ function load() {
                     {"selector": ".post-content a, .page-content a", "type": "link"}
                 ]
             },
-            "night": "single.night()",
             "model": model_list_url(),
             "tips": true
         }
