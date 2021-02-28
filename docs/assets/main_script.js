@@ -1,5 +1,6 @@
 
 function main_script() {
+    pio_preconfigure()
     let pio = load()
 }
 
@@ -11,8 +12,8 @@ function load() {
             "content": {
                 "welcome": ["Hi!"],
                 "custom": [
-                    {"selector": ".comment-form", "text": "欢迎参与本文评论，别发小广告噢~"},
-                    {"selector": ".home-social a:last-child", "text": "在这里可以了解博主的日常噢~"},
+                    {"selector": ".comment-form", "text": "Content Tooltip"},
+                    {"selector": ".home-social a:last-child", "text": "Blog Tooltip"},
                     {"selector": ".post-item a", "type": "read"},
                     {"selector": ".post-content a, .page-content a", "type": "link"}
                 ]
@@ -40,6 +41,35 @@ function model_list_url(){
     ]
 
     return Array.from(source_, (s, k) => proxy_host + s)
+}
+
+function pio_preconfigure(){
+    // referencing https://github.com/wu-kan/wu-kan.github.io/
+    // Originally was following pio document and had it in HTML, but this looks cleaner
+
+    // Generating container
+    let pio_container = document.createElement("div")
+    pio_container.classList.add("pio-container")
+    pio_container.classList.add("left")
+    pio_container.style.bottom = "-2rem"
+    pio_container.style.zIndex = "1"
+
+    // Generate action
+    let pio_action = document.createElement("div")
+    pio_action.classList.add("pio-action")
+
+    // Generate canvas
+    let pio_canvas = document.createElement("canvas")
+    pio_canvas.id = "pio"
+    pio_canvas.style.width = "14rem"
+    pio_canvas.width = "640"
+    pio_canvas.height = "800"
+
+    // insert elements
+    document.body.insertAdjacentElement("beforeend", pio_container)
+    pio_container.insertAdjacentElement("beforeend", pio_action)
+    pio_container.insertAdjacentElement("beforeend", pio_canvas)
+
 }
 
 
