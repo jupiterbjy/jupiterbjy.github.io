@@ -1,0 +1,46 @@
+<!-- Referencing https://brython.info/ and https://brython.info/tests/console.html -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Brython Console</title>
+
+    <!-- load brython scripts -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython.min.js">
+    </script>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython_stdlib.min.js">
+    </script>
+
+    <!-- stock style from example -->
+    <style>
+        .interactive_brython {
+            background-color:#000;
+            color:#fff;
+            font-family:'Oxygen Mono', Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+            font-size:14px;
+            overflow:auto
+        }
+    </style>
+</head>
+
+<body onload="brython()">
+
+    <div id="text_area_wrapper" style="width: 100%; height: 100%;">
+        <label>
+            <textarea class="interactive_brython"
+                      id="con_"
+                      style="width: 100%; height: 100%; resize: none">
+            </textarea>
+        </label>
+    </div>
+
+    <script type="text/python">
+        from interpreter import Interpreter
+
+        Interpreter("con_")
+    </script>
+
+</body>
+<!-- TODO: add memo area -->

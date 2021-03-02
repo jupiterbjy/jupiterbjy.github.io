@@ -1,5 +1,5 @@
 
-function main_script() {
+function mainScript() {
     pio_preconfigure()
     let pio = load()
 }
@@ -72,4 +72,4 @@ function pio_preconfigure(){
 }
 
 
-window.onload = main_script
+window.onload = mainScript
