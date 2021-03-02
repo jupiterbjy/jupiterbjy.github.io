@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "feature_test"
+title:  "Feature test"
 date:   2021-03-02 17:55:47 +0900
 categories: jekyll update
 ---
@@ -20,6 +20,6 @@ def wrapper(func: Callable):
     
 ```
 
-$$f(x) = f(c) + f'(c)(x - c) + (f''(c)(x - c)^2)2! + ...$$  
+$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
 
 [라텍스 문법](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
