@@ -20,6 +20,36 @@ def wrapper(func: Callable):
     
 ```
 
-$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
+---  
 
 [라텍스 문법](https://en.wikibooks.org/wiki/LaTeX/Mathematics)
+
+```ignorelang
+$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
+```
+
+$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
+
+
+---
+
+[그래핑 문법](https://mermaid-js.github.io/mermaid/#/)  
+[그래핑 문법 2](https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax)
+
+```ignorelang
+<div class="mermaid">
+graph BT
+    id1(기초교양)-->전문교양
+    id2(핵심교양)-->전문교양
+    id3(일반교양)-->전문교양
+    id4(교양선택)
+</div>
+```
+
+<div class="mermaid">
+graph BT
+    id1(기초교양)-->전문교양
+    id2(핵심교양)-->전문교양
+    id3(일반교양)-->전문교양
+    id4(교양선택)
+</div>
