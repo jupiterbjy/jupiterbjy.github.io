@@ -7,7 +7,7 @@ function load_html() {
     iframe_source.src = location.href + "/support.html"
 
     let iframe_doc = iframe_source.contentDocument || iframe_source.contentWindow.document
-    let main_page = iframe_doc.getElementsByClassName("page-content")
+    // let main_page = iframe_doc.getElementsByClassName("page-content")
     let text_area = iframe_doc.getElementsByClassName("interactive_brython")
 
     text_area.scrollTop = text_area.scrollHeight
