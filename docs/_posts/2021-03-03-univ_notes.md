@@ -21,13 +21,14 @@ categories: personal note
     - [전문교양](https://imgur.com/jdxRVKg)
 
 - 교양 상속 구조
-    ```mermaid
-    graph LR;
-        기초교양-->전문교양(Hard edge);
-        핵심교양-->전문교양;
-        일반교양-->전문교양;
-        교양선택(Round edge);
-    ```
+
+<div class="mermaid">
+graph LR;
+    기초교양-->전문교양(Hard edge);
+    핵심교양-->전문교양;
+    일반교양-->전문교양;
+    교양선택(Round edge);
+</div>
 
 ---
 

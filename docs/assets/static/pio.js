@@ -2,29 +2,30 @@
 
 # Pio Plugin
 # By: Dreamer-Paul
-# Last Update: 2020.3.8
+# Last Update: 2021.3.3
 
 一个支持更换 Live2D 模型的 Typecho 插件。
 
 本代码为奇趣保罗原创，并遵守 GPL 2.0 开源协议。欢迎访问我的博客：https://paugram.com
 
-# jupiterbjy - edited to add extra elements and change lines to eng.
-# All right reserved to original author Dreamer-Paul.
++ jupiterbjy
+Making a changes for my website, all rights are reserved to original author.
 
 ---- */
 
-const Paul_Pio = function (prop) {
-    this.prop = prop;
-    let current = {
+var Paul_Pio = function (prop) {
+    var that = this;
+
+    var current = {
         idol: 0,
         menu: document.querySelector(".pio-container .pio-action"),
         canvas: document.getElementById("pio"),
         body: document.querySelector(".pio-container"),
-        root: document.location.protocol + '//' + document.location.hostname + '/'
+        root: document.location.protocol +'//' + document.location.hostname +'/'
     };
 
     /* - 方法 */
-    const modules = {
+    var modules = {
         // 更换模型
         idol: function () {
             current.idol < (prop.model.length - 1) ? current.idol++ : current.idol = 0;
@@ -32,8 +33,8 @@ const Paul_Pio = function (prop) {
         },
         // 创建内容
         create: function (tag, prop) {
-            const e = document.createElement(tag);
-            if (prop.class) e.className = prop.class;
+            var e = document.createElement(tag);
+            if(prop.class) e.className = prop.class;
             return e;
         },
         // 随机内容
@@ -42,11 +43,13 @@ const Paul_Pio = function (prop) {
         },
         // 创建对话框方法
         render: function (text) {
-            if (text.constructor === Array) {
+            if(text.constructor === Array){
                 dialog.innerText = modules.rand(text);
-            } else if (text.constructor === String) {
+            }
+            else if(text.constructor === String){
                 dialog.innerText = text;
-            } else {
+            }
+            else{
                 dialog.innerText = "输入内容出现问题了 X_X";
             }
 
@@ -59,63 +62,77 @@ const Paul_Pio = function (prop) {
         },
         // 移除方法
         destroy: function () {
-            current.body.parentNode.removeChild(current.body);
+            that.initHidden();
             localStorage.setItem("posterGirl", 0);
         },
         // 是否为移动设备
         isMobile: function () {
-            let ua = window.navigator.userAgent.toLowerCase();
-            ua = ua.indexOf("mobi") || ua.indexOf("android") || ua.indexOf("ios");
+            var ua = window.navigator.userAgent.toLowerCase();
+            ua = ua.indexOf("mobile") || ua.indexOf("android") || ua.indexOf("ios");
 
             return window.innerWidth < 500 || ua !== -1;
         }
     };
+    this.destroy = modules.destroy;
 
-    const elements = {
+    var elements = {
         home: modules.create("span", {class: "pio-home"}),
         skin: modules.create("span", {class: "pio-skin"}),
         info: modules.create("span", {class: "pio-info"}),
         night: modules.create("span", {class: "pio-night"}),
         close: modules.create("span", {class: "pio-close"}),
-        test_: modules.create("span", {class: "pio-test"})
+        test_: modules.create("span", {class: "pio-test"}),
+
+        show: modules.create("div", {class: "pio-show"})
     };
 
-    let dialog = modules.create("div", {class: "pio-dialog"});
+    var dialog = modules.create("div", {class: "pio-dialog"});
     current.body.appendChild(dialog);
+    current.body.appendChild(elements.show);
 
     /* - 提示操作 */
-    let action = {
+    var action = {
         // 欢迎
         welcome: function () {
-            if (document.referrer !== "" && document.referrer.indexOf(current.root) === -1) {
-                let referrer = document.createElement('a');
+            if(document.referrer !== "" && document.referrer.indexOf(current.root) === -1){
+                var referrer = document.createElement('a');
                 referrer.href = document.referrer;
                 prop.content.referer ? modules.render(prop.content.referer.replace(/%t/, "“" + referrer.hostname + "”")) : modules.render("欢迎来自 “" + referrer.hostname + "” 的朋友！");
-            } else if (prop.tips) {
-                let text, hour = new Date().getHours();
+            }
+            else if(prop.tips){
+                var text, hour = new Date().getHours();
 
                 if (hour > 22 || hour <= 5) {
                     text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛';
-                } else if (hour > 5 && hour <= 8) {
+                }
+                else if (hour > 5 && hour <= 8) {
                     text = '早上好！';
-                } else if (hour > 8 && hour <= 11) {
+                }
+                else if (hour > 8 && hour <= 11) {
                     text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
-                } else if (hour > 11 && hour <= 14) {
+                }
+                else if (hour > 11 && hour <= 14) {
                     text = '中午了，工作了一个上午，现在是午餐时间！';
-                } else if (hour > 14 && hour <= 17) {
+                }
+                else if (hour > 14 && hour <= 17) {
                     text = '午后很容易犯困呢，今天的运动目标完成了吗？';
-                } else if (hour > 17 && hour <= 19) {
+                }
+                else if (hour > 17 && hour <= 19) {
                     text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~';
-                } else if (hour > 19 && hour <= 21) {
+                }
+                else if (hour > 19 && hour <= 21) {
                     text = '晚上好，今天过得怎么样？';
-                } else if (hour > 21 && hour <= 23) {
+                }
+                else if (hour > 21 && hour <= 23) {
                     text = '已经这么晚了呀，早点休息吧，晚安~';
-                } else {
+                }
+                else{
                     text = "奇趣保罗说：这个是无法被触发的吧，哈哈";
                 }
 
                 modules.render(text);
-            } else {
+            }
+            else{
                 modules.render(prop.content.welcome || "欢迎来到本站！");
             }
         },
@@ -129,7 +146,8 @@ const Paul_Pio = function (prop) {
         buttons: function () {
             // 返回首页
             elements.home.onclick = function () {
-                location.href = "/"
+                // changing this from current.root to "/" for my usecase
+                location.href = "/";
             };
             elements.home.onmouseover = function () {
                 modules.render(prop.content.home || "点击这里回到首页！");
@@ -144,7 +162,7 @@ const Paul_Pio = function (prop) {
             elements.skin.onmouseover = function () {
                 prop.content.skin && prop.content.skin[0] ? modules.render(prop.content.skin[0]) : modules.render("想看看我的新衣服吗？");
             };
-            if (prop.model.length > 1) current.menu.appendChild(elements.skin);
+            if(prop.model.length > 1) current.menu.appendChild(elements.skin);
 
             // 关于我
             elements.info.onclick = function () {
@@ -156,7 +174,7 @@ const Paul_Pio = function (prop) {
             current.menu.appendChild(elements.info);
 
             // 夜间模式
-            if (prop.night) {
+            if(prop.night){
                 elements.night.onclick = function () {
                     eval(prop.night);
                 };
@@ -175,30 +193,33 @@ const Paul_Pio = function (prop) {
             };
             current.menu.appendChild(elements.close);
 
+            // additions
             elements.test_.onclick = function () {
                 location.href = "/Brython"
             }
-            elements.test_.onmouseover = function () {
-                modules.render("Wanna try out Brython?");
-            };
+            elements.test_.onmouseover = function() {
+                modules.render("Wanna try out Brython?")
+            }
             current.menu.appendChild(elements.test_)
         },
         custom: function () {
             prop.content.custom.forEach(function (t) {
-                if (!t.type) t.type = "default";
-                let e = document.querySelectorAll(t.selector);
+                if(!t.type) t.type = "default";
+                var e = document.querySelectorAll(t.selector);
 
-                if (e.length) {
-                    for (let j = 0; j < e.length; j++) {
-                        if (t.type === "read") {
+                if(e.length){
+                    for(var j = 0; j < e.length; j++){
+                        if(t.type === "read"){
                             e[j].onmouseover = function () {
                                 modules.render("想阅读 %t 吗？".replace(/%t/, "“" + this.innerText + "”"));
                             }
-                        } else if (t.type === "link") {
+                        }
+                        else if(t.type === "link"){
                             e[j].onmouseover = function () {
                                 modules.render("想了解一下 %t 吗？".replace(/%t/, "“" + this.innerText + "”"));
                             }
-                        } else if (t.text) {
+                        }
+                        else if(t.text){
                             e[j].onmouseover = function () {
                                 modules.render(t.text);
                             }
@@ -210,21 +231,19 @@ const Paul_Pio = function (prop) {
     };
 
     /* - 运行 */
-    let begin = {
+    var begin = {
         static: function () {
             current.body.classList.add("static");
         },
         fixed: function () {
-            action.touch();
-            action.buttons();
+            action.touch(); action.buttons();
         },
         draggable: function () {
-            action.touch();
-            action.buttons();
+            action.touch(); action.buttons();
 
-            let body = current.body;
+            var body = current.body;
             body.onmousedown = function (downEvent) {
-                let location = {
+                var location = {
                     x: downEvent.clientX - this.offsetLeft,
                     y: downEvent.clientY - this.offsetTop
                 };
@@ -233,7 +252,7 @@ const Paul_Pio = function (prop) {
                     body.classList.add("active");
                     body.classList.remove("right");
                     body.style.left = (moveEvent.clientX - location.x) + 'px';
-                    body.style.top = (moveEvent.clientY - location.y) + 'px';
+                    body.style.top  = (moveEvent.clientY - location.y) + 'px';
                     body.style.bottom = "auto";
                 }
 
@@ -248,31 +267,35 @@ const Paul_Pio = function (prop) {
 
     // 运行
     this.init = function (onlyText) {
-        if (!(prop.hidden && modules.isMobile())) {
-            current.body.classList.add("loaded");
-
-            if (!onlyText) {
+        if(!(prop.hidden && modules.isMobile())){
+            if(!onlyText){
                 action.welcome();
-
                 loadlive2d("pio", prop.model[0]);
             }
 
-            switch (prop.mode) {
-                case "static":
-                    begin.static();
-                    break;
-                case "fixed":
-                    begin.fixed();
-                    break;
-                case "draggable":
-                    begin.draggable();
-                    break;
+            switch (prop.mode){
+                case "static": begin.static(); break;
+                case "fixed":  begin.fixed(); break;
+                case "draggable": begin.draggable(); break;
             }
 
-            if (prop.content.custom) action.custom();
+            if(prop.content.custom) action.custom();
         }
     };
-    if (!localStorage.getItem("posterGirl")) this.init();
+
+    // 隐藏状态
+    this.initHidden = function () {
+        current.body.classList.add("hidden");
+        dialog.classList.remove("active");
+
+        elements.show.onclick = function () {
+            current.body.classList.remove("hidden");
+            localStorage.setItem("posterGirl", 1);
+            that.init();
+        }
+    }
+
+    localStorage.getItem("posterGirl") == 0 ? this.initHidden() : this.init();
 };
 
 // 请保留版权说明
