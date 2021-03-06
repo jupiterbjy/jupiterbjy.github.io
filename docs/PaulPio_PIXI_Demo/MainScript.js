@@ -29,19 +29,16 @@ function load() {
     pio_canvas.width = 640
     pio_canvas.height = 800
 
-    pio_refresh_style()
+    pio_refresh_style("left")
 }
 
 
 function model_list_url(){
     const proxy_host = "https://cdn.jsdelivr.net/gh/"
 
-    const source_0 = [
-        "https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
-        "https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json",
-    ]
-
     const source_1 = [
+        "guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
+        "guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json",
         "imuncle/live2d/live2d_3/model/Azue%20Lane(JP)/xixuegui_4/xixuegui_4.model3.json",
         "imuncle/live2d/model/22/model.default.json",
         "imuncle/live2d/model/22/model.2016.xmas.1.json",
@@ -57,7 +54,7 @@ function model_list_url(){
     ]
     const joined = Array.from(source_1, (s, _) => proxy_host + s)
 
-    return source_0.concat(joined)
+    return joined
 }
 
 let pio_reference

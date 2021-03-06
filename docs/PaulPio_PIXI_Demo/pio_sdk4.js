@@ -1,15 +1,17 @@
 /* ----
 
-# Pio Plugin
-# By: Dreamer-Paul
+# Pio SDK 2/3/4 support
+# By: jupiterbjy
 # Last Update: 2021.3.6
 
-一个支持更换 Live2D 模型的 Typecho 插件。
 
-本代码为奇趣保罗原创，并遵守 GPL 2.0 开源协议。欢迎访问我的博客：https://paugram.com
 
-jupiterbjy: I couldn't fetch pio frm cdn.jsdelivr.net as it was serving way old version of this.
-jupiterbjy: code itself is not modified and all right reserved to original author
+To use this, you need to include following sources to your HTML file first.
+
+<script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
 
 ---- */
 
@@ -68,35 +70,35 @@ function loadlive2d(canvas, json_object_or_url) {
 
 
 function pio_initialize_container(){
-    // referencing github.com/wu-kan/wu-kan.github.io/
 
-    // Generating container
+    // Generate structure
     let pio_container = document.createElement("div")
     pio_container.classList.add("pio-container")
+    document.body.insertAdjacentElement("beforeend", pio_container)
 
     // Generate action
     let pio_action = document.createElement("div")
     pio_action.classList.add("pio-action")
+    pio_container.insertAdjacentElement("beforeend", pio_action)
 
     // Generate canvas
     let pio_canvas = document.createElement("canvas")
     pio_canvas.id = "pio"
-
-    // insert elements
-    document.body.insertAdjacentElement("beforeend", pio_container)
-    pio_container.insertAdjacentElement("beforeend", pio_action)
     pio_container.insertAdjacentElement("beforeend", pio_canvas)
-
-    // default parameter
-    // Pio will be placed at left side while menus are right side without explicit "right" or "left".
-    pio_container.classList.add("right")
 }
 
 
-function pio_refresh_style(){
+function pio_refresh_style(alignment="right"){
     // Had to separate this from PIXI initialization
     // or first loaded Live2D's size will break on resizing.
+    //
     // Always make sure to call this after canvas style changes!
+    // You can set alignment here, but still you can change it manually.
+
+    let pio_container = document.getElementsByClassName("pio-container").item(0)
+
+    pio_container.classList.remove("left", "right")
+    pio_container.classList.add(alignment)
 
     app.resizeTo = document.getElementById("pio")
 }
