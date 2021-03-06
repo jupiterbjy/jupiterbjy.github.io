@@ -36,14 +36,6 @@
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- L2D Pio style -->
-  <link href='/assets/static/pio.css' rel='stylesheet' type='text/css'/>
-
-  <!-- Load L2D -->
-  <script src="/assets/static/l2d.js"></script>
-  <script src="/assets/static/pio.js"></script>
-  <script src="/assets/MainScript.js"></script>
-
   <!-- load MathJax-->
   <script type="text/javascript" async
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -52,4 +44,22 @@
   <!-- load mermaid -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   <script>mermaid.initialize({startOnLoad:true});</script>
+
+
+  <!-- Copyrighted official cubism SDK -->
+  <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
+
+  <!-- Load Pixi (dependency for cubism 2/4 integrated loader) -->
+  <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+
+  <!-- Load cubism 2/4 integrated loader -->
+  <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
+
+  <!-- Load custom pio and css -->
+  <script src="/assets/static/pio.js"></script>
+  <link href="/assets/static/pio.css" rel='stylesheet' type='text/css'/>
+
+  <script src="/assets/MainScript.js"></script>
+
 </head>

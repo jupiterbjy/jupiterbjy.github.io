@@ -91,7 +91,6 @@ function pio_reconfigure_style(){
 
 function loadlive2d(canvas, json_object_or_url) {
     // Replaces original l2d method 'loadlive2d' for Pio.
-    console.log("[LOG] Loading new model!")
 
     try {
         app.stage.removeChildAt(0)
@@ -153,7 +152,6 @@ function app_reconfigure_style(){
 
 
 function mainScript() {
-    console.log("[LOG] Initializing Pio!")
     pio_preconfigure()
     init_app()
 
