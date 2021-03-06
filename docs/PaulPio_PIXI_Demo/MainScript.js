@@ -52,9 +52,7 @@ function model_list_url(){
         "imuncle/live2d/model/22/model.2018.lover.json"
 
     ]
-    const joined = Array.from(source_1, (s, _) => proxy_host + s)
-
-    return joined
+    return Array.from(source_1, (s, _) => proxy_host + s)
 }
 
 let pio_reference

@@ -4,9 +4,10 @@
 # By: jupiterbjy
 # Last Update: 2021.3.6
 
-
-
 To use this, you need to include following sources to your HTML file first.
+Basic usage is same with Paul-Pio.
+
+Make sure to call `pio_refresh_style()` upon changing styles on either *pio-container* or *pio* canvas object.
 
 <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
@@ -69,7 +70,7 @@ function loadlive2d(canvas, json_object_or_url) {
 }
 
 
-function pio_initialize_container(){
+function _pio_initialize_container(){
 
     // Generate structure
     let pio_container = document.createElement("div")
@@ -92,7 +93,7 @@ function pio_refresh_style(alignment="right"){
     // Had to separate this from PIXI initialization
     // or first loaded Live2D's size will break on resizing.
     //
-    // Always make sure to call this after canvas style changes!
+    // Always make sure to call this after container/canvas style changes!
     // You can set alignment here, but still you can change it manually.
 
     let pio_container = document.getElementsByClassName("pio-container").item(0)
@@ -115,7 +116,7 @@ function _pio_initialize_pixi_app() {
 
 
 function _pio_initialize() {
-    pio_initialize_container()
+    _pio_initialize_container()
     _pio_initialize_pixi_app()
 
     pio_refresh_style()
