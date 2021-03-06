@@ -114,7 +114,8 @@ jupiterbjy: code itself is not modified and all right reserved to original autho
 
 #pio{ vertical-align: middle }
 
-@media screen and (max-width: 768px){
-    #pio{ width: 8em }
-    .pio-container{ pointer-events: none }
-}
+
+/*@media screen{*/
+/*    #pio{ width: 8em }*/
+/*    .pio-container{ pointer-events: none }*/
+/*}*/

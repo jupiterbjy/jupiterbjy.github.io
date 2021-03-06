@@ -35,7 +35,7 @@ function loadlive2d(canvas, json_object_or_url) {
 
         const canvas_ = document.getElementById("pio")
 
-        const vertical_factor = canvas_.height / model.height;
+        const vertical_factor = canvas_.height / model.height
         model.scale.set(vertical_factor)
 
         // match canvas to model width
