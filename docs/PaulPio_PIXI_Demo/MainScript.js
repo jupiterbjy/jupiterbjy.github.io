@@ -25,9 +25,7 @@ function load() {
     // Edit styles here
     pio_container.style.bottom = "-2rem"
     pio_container.style.zIndex = "1"
-    pio_canvas.style.width = "14rem"
-    pio_canvas.width = 640
-    pio_canvas.height = 800
+    pio_canvas.style.height = "20rem"
 
     pio_refresh_style("left")
 }
