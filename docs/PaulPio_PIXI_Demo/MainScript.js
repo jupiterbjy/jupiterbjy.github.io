@@ -27,7 +27,8 @@ function load() {
     pio_container.style.zIndex = "1"
     pio_canvas.style.height = "20rem"
 
-    pio_refresh_style("left")
+    pio_alignment = "left"
+    pio_refresh_style()
 }
 
 

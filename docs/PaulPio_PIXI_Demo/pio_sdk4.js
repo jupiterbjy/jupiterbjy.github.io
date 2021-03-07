@@ -89,7 +89,7 @@ function _pio_initialize_container(){
 }
 
 
-function pio_refresh_style(alignment="right"){
+function pio_refresh_style(){
     // Had to separate this from PIXI initialization
     // or first loaded Live2D's size will break on resizing.
     //
@@ -99,7 +99,7 @@ function pio_refresh_style(alignment="right"){
     let pio_container = document.getElementsByClassName("pio-container").item(0)
 
     pio_container.classList.remove("left", "right")
-    pio_container.classList.add(alignment)
+    pio_container.classList.add(pio_alignment)
 
     app.resizeTo = document.getElementById("pio")
 }
@@ -121,6 +121,11 @@ function _pio_initialize() {
 
     pio_refresh_style()
 }
+
+// change alignment to left by modifying this value in other script.
+// Make sure to call `pio_refresh_style` to apply changes!
+let pio_alignment = "right"
+
 
 let app
 _pio_initialize()
