@@ -3,6 +3,8 @@ layout: post
 title: "홍대 메모"
 date: 2021-03-03 00:00:00 +0900
 categories: personal note
+mathjax: true
+mermaid: true
 ---
 
 ### 비고
