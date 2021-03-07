@@ -2,12 +2,14 @@
 
 # Pio SDK 2/3/4 support
 # By: jupiterbjy
-# Last Update: 2021.3.6
+# Last Update: 2021.3.7
 
 To use this, you need to include following sources to your HTML file first.
 Basic usage is same with Paul-Pio.
 
 Make sure to call `pio_refresh_style()` upon changing styles on either *pio-container* or *pio* canvas object.
+
+To change alignment, modify variable `pio_alignment` to either `left` or `right`, then call `pio_refresh_style()`.
 
 <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
