@@ -1,10 +1,10 @@
 
-<!-- Load mathjax -->
+<!-- load mathjax -->
 {% if page.mathjax %}
     <script>
         MathJax = {
             tex: {
-                inlineMath: [['$@', '@$'], ['\\(', '\\)']]
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
             },
             svg: {
                 fontCache: 'global'
@@ -15,7 +15,7 @@
 {% endif %}
 
 
-<!-- Console button -->
+<!-- console button -->
 {% if page.console %}
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
