@@ -35,6 +35,16 @@ theme: minima
 plugins:
   - jekyll-feed
 
+# custom collections for university stuffs and header displayed posts
+# ref http://jekyllrb-ko.github.io/docs/permalinks/
+collections_dir: post_collections
+
+collections:
+  university_stuffs:
+    type: university_contents
+    output: true
+    permalink: /univ/:name
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
