@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>にゃ本郷</title>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython.min.js">
+    </script>
+
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython_stdlib.min.js">
+    </script>
+
+    <!--  Style from brython demo  -->
+    <style>
+    *{
+        font-family: sans-serif;
+        font-weight: normal;
+        font-size: 1.1em;
+        text-align: center;
+        align-content: center;
+    }
+    th{
+        background-color: #cfcfcf;
+        padding: 10px 30px 10px 30px;
+        border-radius: 0.2em;
+        cursor: default;
+    }
+    #main_table{
+        width: 660px;
+    }
+    #month_display{
+        font-size: 1.4em;
+        font-weight: bold;
+    }
+    #date_input_field{
+        border-color: #000;
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 0.2em;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+    }
+    #refresh{
+        background-color: #F8C597;
+        padding: 10px 30px 10px 30px;
+        border-radius: 0.2em;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body onload="brython()">
+<script type="text/python" src="JapaneseDate.py">
+</script>
+</body>
+</html>
