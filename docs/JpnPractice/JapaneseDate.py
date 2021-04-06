@@ -59,7 +59,7 @@ def date_gen_closure():
             for idx, cell in enumerate(itertools.islice(cell_iter_gen(), start_date, start_date + duration), 1):
                 cell.text = idx
 
-            document[f"cal_{start_date + date.day}"].style = {"background-color": "#55CA5A"}
+            document[f"cal_{start_date + date.day - 1}"].style = {"background-color": "#55CA5A"}
 
             yield date.month, date.day
 
