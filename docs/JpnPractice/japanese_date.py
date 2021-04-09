@@ -1,27 +1,33 @@
+"""
+As `# noinspection PyStatementEffect` on start of file did not stop pycharm
+from showing "statement has no effect" warnings, I just added assignment to
+DOM assignments.
+"""
+
 import itertools
 import random
 import datetime
 import calendar
 
 from browser import document, html
-from browser.widgets.dialog import InfoDialog
 
 
 table = html.TABLE(id="main_table")
-document <= table
+_ = document <= table
 
 month_display = html.DIV("0", id="month_display")
-table <= html.TR(html.TD(month_display, colspan=7))
+_ = table <= html.TR(html.TD(month_display, colspan=7))
 
-table <= html.TR(html.TD(day, id=f"day_{day}") for day in "日月火水木金土")
-table <= (html.TR(html.TH(d + r * 7, id=f"cal_{d + r * 7}") for d in range(7)) for r in range(6))
-
-info_label = html.LABEL()
-table <= html.TR(html.TD(info_label, colspan=6))
+_ = table <= html.TR(html.TD(day, id=f"day_{day}") for day in "日月火水木金土")
+_ = table <= (
+    html.TR(html.TH(d + r * 7, id=f"cal_{d + r * 7}") for d in range(7))
+    for r in range(6)
+)
 
 date_input_field = html.INPUT(id="date_input_field")
 refresh_td = html.TD("\u21BB", id="refresh", colspan=1)
-table <= html.TR(html.TD(date_input_field, colspan=6) + refresh_td)
+
+_ = table <= html.TR(html.TD(date_input_field, colspan=6) + refresh_td)
 
 
 def date_gen_closure():
@@ -48,7 +54,9 @@ def date_gen_closure():
         nonlocal start_time, end_time
 
         while True:
-            date = datetime.datetime.fromtimestamp(random.randint(start_time, end_time)).date()
+            date = datetime.datetime.fromtimestamp(
+                random.randint(start_time, end_time)
+            ).date()
 
             start_date, duration = get_month_detail(date.month)
 
@@ -56,10 +64,14 @@ def date_gen_closure():
                 cell.text = "\u2800"
                 cell.removeAttribute("style")
 
-            for idx, cell in enumerate(itertools.islice(cell_iter_gen(), start_date, start_date + duration), 1):
+            for idx, cell in enumerate(
+                itertools.islice(cell_iter_gen(), start_date, start_date + duration), 1
+            ):
                 cell.text = idx
 
-            document[f"cal_{start_date + date.day - 1}"].style = {"background-color": "#55CA5A"}
+            document[f"cal_{start_date + date.day - 1}"].style = {
+                "background-color": "#55CA5A"
+            }
 
             yield date.month, date.day
 
@@ -82,7 +94,7 @@ def date_translate_closure():
         "9": "くがつ",
         "10": "じゅうがつ",
         "11": "じゅういちがつ",
-        "12": "じゅうにがつ"
+        "12": "じゅうにがつ",
     }
 
     day_dict = {
@@ -116,7 +128,7 @@ def date_translate_closure():
         "28": "にじゅうはちにち",
         "29": "にじゅうくにち",
         "30": "さんじゅうにち",
-        "31": "さんじゅういちにち"
+        "31": "さんじゅういちにち",
     }
 
     def inner(month, day):
@@ -129,6 +141,14 @@ date_translate = date_translate_closure()
 
 
 def check_answer(input_, answer):
+    """
+    I don't bother to put complex checker here.
+
+    :param input_: input string given by HTML input field
+    :param answer: sequence of answer parts
+    :return: True if input contains all strings in answer, else False
+    """
+
     for part in answer:
         if part in input_:
             continue
@@ -142,16 +162,24 @@ def check_answer(input_, answer):
 
 
 def main_gen():
+    """
+    Main loop. Obviously it's waste to run loop and look for user input.
+    Instead using event loop so user signals code when to run.
+    """
+
     while True:
+        # pylint: disable=stop-iteration-return
         month, day = next(date_gen)
         answer = date_translate(month, day)
 
+        date_input_field.clear()
         month_display.text = f"{month}月"
-        info_label.text = "Type month and day in hiragana"
+        date_input_field.placeholder = "Type month & day in hiragana"
         yield
 
         while not check_answer(date_input_field.value, answer):
-            info_label.text = f"{month}月 {day}日: {answer[0]}  {answer[1]}"
+            date_input_field.clear()
+            date_input_field.placeholder = f"{answer[0]} {answer[1]}"
             yield
 
 
@@ -160,7 +188,12 @@ next(gen_instance)
 
 
 def keypress(event):
-    # Enter = 13
+    """
+    Keypress event handler, will only react to 13 which is enter.
+
+    :param event: event object, passed by brython.
+    """
+
     print(event.keyCode)
     if event.keyCode == 13:
         next(gen_instance)
@@ -170,9 +203,19 @@ def keypress(event):
 
 
 def trigger_refresh(event):
+    """
+    Drop reference to original generator instance upon refresh.
+
+    :param event: event object, passed by brython.
+    """
+
     global gen_instance
+    original = gen_instance
+
     gen_instance = main_gen()
     next(gen_instance)
+
+    del original
     event.stopPropagation()
 
 
