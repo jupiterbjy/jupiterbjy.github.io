@@ -19,7 +19,7 @@
 # in the templates via {{ site.myvariable }}.
 
 # Build settings
-markdown: redcarpet
+#markdown: redcarpet
 
 title: Very test site
 email: nyarukoishi@gmail.com
