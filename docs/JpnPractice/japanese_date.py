@@ -9,6 +9,7 @@ import random
 import datetime
 import calendar
 
+from typing import Generator, Tuple
 from browser import document, html
 
 
@@ -97,6 +98,15 @@ def date_translate_closure():
 date_translate = date_translate_closure()
 
 
+def cell_iter_gen():
+    """
+    A generator to provide iteration interface for calender cells.
+    """
+
+    for n in range(42):
+        yield document[f"cal_{n}"]
+
+
 class CalenderWrapper:
     def __init__(self):
         self._gen_instance = self.create_new_main_gen()
@@ -122,6 +132,9 @@ class CalenderWrapper:
         self.write_to_calender()
 
     def set_new_random_date(self):
+        """
+        Sets new random date and update calender.
+        """
         date_input_field.value = ""
         date_input_field.placeholder = "Type month & day in hiragana"
 
@@ -134,7 +147,7 @@ class CalenderWrapper:
 
     def create_new_main_gen(self):
         """
-        Main loop. Obviously it's waste to run loop and look for user input.
+        Main loop. Obviously it's waste to run normal loop and look for user input.
         Instead using event loop so user signals code when to run.
         """
 
@@ -175,12 +188,12 @@ class CalenderWrapper:
 
         return False
 
-    @staticmethod
-    def _cell_iter_gen():
-        for n in range(42):
-            yield document[f"cal_{n}"]
-
     def write_to_calender(self):
+        """
+        Update calender to current values.
+        Uses dumb and powerful erase-all-then-write way, for simplicity.
+        """
+
         month = self.month
         date = self.date
 
@@ -191,12 +204,12 @@ class CalenderWrapper:
         # Converting mon-sun to sun-sat
         start_date = start_date + 1 if start_date != 6 else 0
 
-        for cell in self._cell_iter_gen():
+        for cell in cell_iter_gen():
             cell.text = "\u2800"
             cell.removeAttribute("style")
 
         for idx, cell in enumerate(
-                itertools.islice(self._cell_iter_gen(), start_date, start_date + duration), 1
+                itertools.islice(cell_iter_gen(), start_date, start_date + duration), 1
         ):
             cell.text = idx
             cell.style = {
@@ -208,9 +221,11 @@ class CalenderWrapper:
         }
 
 
-def date_gen_closure():
+def date_gen_closure() -> Generator[Tuple[int, int], None, None]:
     """
-    Instantiate date generator and shadow this method to function that yield from it.
+    Instantiate random date generator.
+
+    :return Generator instance.
     """
 
     start_time = int(datetime.datetime.strptime(f"{TARGET_YEAR}-01-01", "%Y-%m-%d").timestamp())
@@ -248,7 +263,7 @@ def keypress(event):
 
 def trigger_refresh(event):
     """
-    Drop reference to original generator instance upon refresh.
+    Set new random dates and update calender.
 
     :param event: event object, passed by brython.
     """
@@ -258,12 +273,26 @@ def trigger_refresh(event):
 
 
 def set_date(event):
+    """
+    Sets specific date.
+    Day might change to compensate for length difference between months.
+
+    :param event: event object, passed by brython.
+    """
+
     dropdown = event.target
     main_instance.date = dropdown.selectedIndex + 1
     event.stopPropagation()
 
 
 def set_month(event):
+    """
+    Sets specific Month.
+    Day might change to compensate for length difference between months.
+
+    :param event: event object, passed by brython.
+    """
+
     dropdown = event.target
     main_instance.month = dropdown.selectedIndex + 1
     event.stopPropagation()
