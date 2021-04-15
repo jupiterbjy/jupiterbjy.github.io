@@ -15,27 +15,48 @@ from browser import document, html
 
 TARGET_YEAR = 2000
 
-table = html.TABLE(id="main_table")
-month_display = html.DIV("0", id="month_display")
 
-date_input_field = html.INPUT(id="date_input_field")
-refresh_td = html.TD("\u21BB", id="refresh", colspan=1)
+class UIWrapper:
+    def __init__(self):
 
-dropdown_month = html.SELECT(html.OPTION(n + 1) for n in range(12))
-dropdown_day = html.SELECT(html.OPTION(n + 1) for n in range(31))
+        # Generate UI structure and setup attributes
 
-assert document <= table
-assert table <= html.TR(html.TD(month_display, colspan=7))
+        main_div = html.DIV(id="DatePractice")
+        assert document <= main_div
 
-assert table <= html.TR(html.TD(day, id=f"day_{day}") for day in "日月火水木金土")
-assert table <= (
-    html.TR(html.TH(d + r * 7, id=f"cal_{d + r * 7}") for d in range(7))
-    for r in range(6)
-)
+        table = html.TABLE(id="main_table")
+        assert document <= table
 
-assert table <= html.TR(html.TD(dropdown_month + "月", colspan=1) +
-                        html.TD(dropdown_day + "日", colspan=1))
-assert table <= html.TR(html.TD(date_input_field, colspan=6) + refresh_td)
+        self.month_display = html.DIV("0", id="month_display")
+        assert table <= html.TR(html.TD(self.month_display, colspan=7))
+
+        self.calender = [[html.TD(day, id=f"day_{day}") for day in "日月火水木金土"]]
+        assert table <= html.TR(self.calender[0])
+
+        for line in range(6):
+            cells = [html.TH(d + line * 7, id=f"cal_{d + line * 7}", Class="day") for d in range(7)]
+            self.calender.append(cells)
+            assert table <= html.TR(cells)
+
+        self.day_cells = list(itertools.chain(*self.calender[1:]))
+
+        self.dropdown_month = html.SELECT(html.OPTION(n + 1) for n in range(12))
+        self.dropdown_day = html.SELECT(html.OPTION(n + 1) for n in range(31))
+        assert table <= html.TR(html.TD(self.dropdown_month + "月", colspan=1) +
+                                html.TD(self.dropdown_day + "日", colspan=1))
+
+        self.date_input_field = html.INPUT(id="date_input_field")
+        self.refresh_td = html.TD("\u21BB", id="refresh", colspan=1)
+        assert table <= html.TR(html.TD(self.date_input_field, colspan=6) + self.refresh_td)
+
+        # Generate style
+
+        sun, *_, sat = zip(*self.calender)
+        for weekend in itertools.chain(sun, sat):
+            weekend.classList.add("weekend")
+
+
+ui_element = UIWrapper()
 
 
 def date_translate_closure():
@@ -98,36 +119,27 @@ def date_translate_closure():
 date_translate = date_translate_closure()
 
 
-def cell_iter_gen():
-    """
-    A generator to provide iteration interface for calender cells.
-    """
-
-    for n in range(42):
-        yield document[f"cal_{n}"]
-
-
 class CalenderWrapper:
     def __init__(self):
         self._gen_instance = self.create_new_main_gen()
 
     @property
     def date(self):
-        return dropdown_day.selectedIndex + 1
+        return ui_element.dropdown_day.selectedIndex + 1
 
     @date.setter
     def date(self, val):
-        dropdown_day.selectedIndex = val - 1
+        ui_element.dropdown_day.selectedIndex = val - 1
         self.validate_n_fix_date()
         self.write_to_calender()
 
     @property
     def month(self):
-        return dropdown_month.selectedIndex + 1
+        return ui_element.dropdown_month.selectedIndex + 1
 
     @month.setter
     def month(self, val):
-        dropdown_month.selectedIndex = val - 1
+        ui_element.dropdown_month.selectedIndex = val - 1
         self.validate_n_fix_date()
         self.write_to_calender()
 
@@ -135,8 +147,8 @@ class CalenderWrapper:
         """
         Sets new random date and update calender.
         """
-        date_input_field.value = ""
-        date_input_field.placeholder = "Type month & day in hiragana"
+        ui_element.date_input_field.value = ""
+        ui_element.date_input_field.placeholder = "Type month & day in hiragana"
 
         month, date = next(date_gen_instance)
 
@@ -159,13 +171,13 @@ class CalenderWrapper:
                     yield
 
                     answer_month, answer_date = date_translate(self.month, self.date)
-                    string = date_input_field.value
+                    string = ui_element.date_input_field.value
 
                     if answer_month in string and answer_date in string:
                         break
 
-                    date_input_field.value = ""
-                    date_input_field.placeholder = f"{answer_month} {answer_date}"
+                    ui_element.date_input_field.value = ""
+                    ui_element.date_input_field.placeholder = f"{answer_month} {answer_date}"
 
         gen = inner_gen()
         next(gen)
@@ -197,19 +209,19 @@ class CalenderWrapper:
         month = self.month
         date = self.date
 
-        month_display.text = f"{month}月"
+        ui_element.month_display.text = f"{month}月"
 
         start_date, duration = calendar.monthrange(TARGET_YEAR, month)
 
         # Converting mon-sun to sun-sat
         start_date = start_date + 1 if start_date != 6 else 0
 
-        for cell in cell_iter_gen():
+        for cell in ui_element.day_cells:
             cell.text = "\u2800"
             cell.removeAttribute("style")
 
         for idx, cell in enumerate(
-                itertools.islice(cell_iter_gen(), start_date, start_date + duration), 1
+                itertools.islice(ui_element.day_cells, start_date, start_date + duration), 1
         ):
             cell.text = idx
             cell.style = {
@@ -256,7 +268,7 @@ def keypress(event):
 
     if event.keyCode == 13:
         main_instance.progress()
-        date_input_field.clear()
+        ui_element.date_input_field.clear()
 
     event.stopPropagation()
 
@@ -298,9 +310,9 @@ def set_month(event):
     event.stopPropagation()
 
 
-date_input_field.bind("keyup", keypress)
-refresh_td.bind("click", trigger_refresh)
-dropdown_day.bind("change", set_date)
-dropdown_month.bind("change", set_month)
+ui_element.date_input_field.bind("keyup", keypress)
+ui_element.refresh_td.bind("click", trigger_refresh)
+ui_element.dropdown_day.bind("change", set_date)
+ui_element.dropdown_month.bind("change", set_month)
 
 main_instance = CalenderWrapper()
