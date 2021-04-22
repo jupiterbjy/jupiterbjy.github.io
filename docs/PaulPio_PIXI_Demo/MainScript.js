@@ -1,5 +1,6 @@
 
 function load() {
+    // Setup for pio and various styles.
 
     pio_reference = new Paul_Pio(
         {
@@ -26,16 +27,19 @@ function load() {
     pio_container.style.bottom = "-2rem"
     pio_container.style.zIndex = "1"
     pio_canvas.style.height = "20rem"
-
     pio_alignment = "left"
+
+    // Then apply style
     pio_refresh_style()
 }
 
 
 function model_list_url(){
-    const proxy_host = "https://cdn.jsdelivr.net/gh/"
+    // Just a convenience function for ease of add/remove models.
 
-    const source_1 = [
+    const cdn_host = "https://cdn.jsdelivr.net/gh/"
+
+    const src_cdn = [
         "guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
         "guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json",
         "imuncle/live2d/live2d_3/model/Azue%20Lane(JP)/xixuegui_4/xixuegui_4.model3.json",
@@ -51,7 +55,21 @@ function model_list_url(){
         "imuncle/live2d/model/22/model.2018.lover.json"
 
     ]
-    return Array.from(source_1, (s, _) => proxy_host + s)
+    return Array.from(src_cdn, (s, _) => cdn_host + s)
+}
+
+
+function switch_left_right(){
+    // This is not needed at all, just to demonstrate switching left-right on the fly.
+
+    if (pio_alignment === "left"){
+        pio_alignment = "right"
+    }
+    else {
+        pio_alignment = "left"
+    }
+
+    pio_refresh_style()
 }
 
 let pio_reference

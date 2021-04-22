@@ -5,24 +5,35 @@
     <title>Title</title>
     <meta name="robots" content="noindex">
 
+    <!-- Copyrighted cubism SDK -->
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
+
+    <!-- Load Pixi (dependency for cubism 2/4 integrated loader) -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
+
+    <!-- Load cubism 2/4 integrated loader -->
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
+
+    <!-- Load pio and alternative loader -->
+    <script src="pio.js"></script>
+    <script src="pio_sdk4.js"></script>
+    <link href="pio.css" rel='stylesheet' type='text/css'/>
+
+    <script src="MainScript.js"></script>
 </head>
 <body>
-
-<!-- Copyrighted cubism SDK -->
-<script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/dylanNew/live2d/webgl/Live2D/lib/live2d.min.js"></script>
-
-<!-- Load Pixi (dependency for cubism 2/4 integrated loader) -->
-<script src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.6/dist/pixi.min.js"></script>
-
-<!-- Load cubism 2/4 integrated loader -->
-<script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
-
-<!-- Load pio and alternative loader -->
-<script src="pio.js"></script>
-<script src="pio_sdk4.js"></script>
-<link href="pio.css" rel='stylesheet' type='text/css'/>
-
-<script src="MainScript.js"></script>
+    <p>
+        <button id="toggle_left_right" onclick="switch_left_right()">
+            Switch left/right
+        </button>
+        <h3>
+            Known issues:
+        </h3>
+        <ul>
+            <li>When pio is minimized, switching left right does not change it's offset or animation direction.</li>
+            <li>Once browser is resized to certain size, it will permanently break viewport size. Essentially breaking view in mobile.
+                comment out line `#pio{ width: 8em }` in 'pio.css' at line 115. if you want to use in mobile.</li>
+        </ul>
 </body>
 </html>
