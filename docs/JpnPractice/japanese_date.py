@@ -8,8 +8,8 @@ import itertools
 import random
 import datetime
 import calendar
-
 from typing import Generator, Tuple
+
 from browser import document, html
 
 
@@ -25,7 +25,7 @@ class UIWrapper:
         assert document <= main_div
 
         table = html.TABLE(id="main_table")
-        assert document <= table
+        assert main_div <= table
 
         self.month_display = html.DIV("0", id="month_display")
         assert table <= html.TR(html.TD(self.month_display, colspan=7))
@@ -40,8 +40,8 @@ class UIWrapper:
 
         self.day_cells = list(itertools.chain(*self.calender[1:]))
 
-        self.dropdown_month = html.SELECT(html.OPTION(n + 1) for n in range(12))
-        self.dropdown_day = html.SELECT(html.OPTION(n + 1) for n in range(31))
+        self.dropdown_month = html.SELECT(html.OPTION(n) for n in range(1, 13))
+        self.dropdown_day = html.SELECT(html.OPTION(n) for n in range(1, 32))
         assert table <= html.TR(html.TD(self.dropdown_month + "月", colspan=1) +
                                 html.TD(self.dropdown_day + "日", colspan=1))
 

@@ -8,9 +8,6 @@
 
 本代码为奇趣保罗原创，并遵守 GPL 2.0 开源协议。欢迎访问我的博客：https://paugram.com
 
-jupiterbjy: I couldn't fetch pio frm cdn.jsdelivr.net as it was serving way old version of this.
-jupiterbjy: code itself is not modified and all right reserved to original author
-
 ---- */
 
 .pio-container{
@@ -114,8 +111,7 @@ jupiterbjy: code itself is not modified and all right reserved to original autho
 
 #pio{ vertical-align: middle }
 
-
-/*@media screen{*/
-/*    #pio{ width: 8em }*/
-/*    .pio-container{ pointer-events: none }*/
-/*}*/
+@media screen and (max-width: 768px){
+    #pio{ width: 8em }
+    .pio-container{ pointer-events: none }
+}
