@@ -125,7 +125,7 @@ class UI:
         link = html.A(vid.title, Class="VideoLink", href=vid.url, target="_blank", style={"display": "block"}, )
 
         date_string = vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p")
-        diff_string = f"{(vid.start_time - started_time).total_seconds() / 3600:.2} hr left"
+        diff_string = f"{round((vid.start_time - started_time).total_seconds() / 3600, 1)} hr left"
 
         time_string = html.DIV(f"{date_string} / {diff_string}", Class="TimeString")
 
