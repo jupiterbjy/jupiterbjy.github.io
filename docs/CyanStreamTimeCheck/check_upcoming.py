@@ -156,9 +156,11 @@ def get_html(query: str) -> str:
         try:
             req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy_m/{query}")
         except Exception as err_:
-
-            ui.activity.text = f"Got Error {err}. Make sure browser is in desktop mode!"
+            print("Fatal Failure!")
+            ui.activity.text = f"Got Error {err_}. Make sure browser is in desktop mode!"
             raise err_ from err
+        else:
+            print("In Mobile mode!")
 
     html_ = req.read()
 
