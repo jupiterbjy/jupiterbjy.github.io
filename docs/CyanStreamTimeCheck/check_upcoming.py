@@ -21,7 +21,10 @@ def get_timezone():
     """
     Get timezone using javascript function. Unfortunately without pytz I can't utilize this.
     """
-    return window.Intl.DateTimeFormat().resolvedOptions().timeZone
+    try:
+        return window.Intl.DateTimeFormat().resolvedOptions().timeZone
+    except AttributeError:
+        return "Local test mode"
 
 
 class VideoInfo:
@@ -82,17 +85,17 @@ class UI:
         print("Building UI.")
 
         self.main_div = html.DIV(id="Main")
-        assert document <= self.main_div
+        document <= self.main_div
 
         timezone_data = html.DIV(get_timezone(), id="timezone-info")
         self.streams_count_div = html.DIV("No upcoming streams found.", id="timezone-info")
 
-        assert self.main_div <= timezone_data
-        assert self.main_div <= self.streams_count_div
+        self.main_div <= timezone_data
+        self.main_div <= self.streams_count_div
 
         self.upcoming_div = html.DIV(className="UpcomingVideoFeed")
 
-        assert self.main_div <= self.upcoming_div
+        self.main_div <= self.upcoming_div
 
         self.streams_count = 0
 
@@ -115,7 +118,7 @@ class UI:
 
         table = html.TABLE(html.TR(html.TD(img, rowspan=2)), html.TR(link), html.TR(start_time))
 
-        assert self.upcoming_div <= table
+        self.upcoming_div <= table
 
         self.streams_count += 1
         self.streams_count_div.text = f"{self.streams_count} upcoming streams found."
@@ -158,7 +161,13 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
     # Compile regex pattern
     pattern = re.compile(r'videoIds"[^"]*"([^"]*)')
 
-    vid_ids = pattern.findall(get_html("channel/" + channel_id))
+    data = get_html("channel/" + channel_id)
+
+    candidates = "\n".join(tuple(line for line in data.split("\n") if "videoIds" in line))
+
+    print(candidates)
+
+    vid_ids = pattern.findall(candidates)
 
     # Fetch unique keys in appearing order, streams are likely to appear at top.
     return tuple(k for (k, v), _ in zip(itertools.groupby(vid_ids), range(max_results)))
