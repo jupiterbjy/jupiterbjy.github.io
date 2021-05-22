@@ -102,9 +102,14 @@ class UI:
 
 def get_html(query: str) -> str:
     req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
+    html_ = req.read()
 
     # If server has brain, it has to be utf8.
-    data = req.read().decode("utf8")
+    try:
+        data = html_.decode("utf8")
+    except AttributeError:
+        # It's already decoded!
+        data = html_
     return data
 
 
