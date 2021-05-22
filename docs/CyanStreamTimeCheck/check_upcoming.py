@@ -56,8 +56,14 @@ class VideoInfo:
         :return: timestamp
         """
 
+        # just even using re makes everything insanely slow in brython. Doing this mess to fix it
+        split = "".join(line for line in self.html_text.split("\n") if "scheduledStartTime" in line)
+        split = "".join(line for line in split.split("<") if "scheduledStartTime" in line)
+        split = "".join(line for line in split.split(",") if "scheduledStartTime" in line)
+        split = "".join(line for line in split.split("{") if "scheduledStartTime" in line)
+
         try:
-            matched = self.start_time_pattern.search(self.html_text).group(1)
+            matched = self.start_time_pattern.search(split).group(1)
         except AttributeError:
             self.is_upcoming = False
             return datetime.datetime.fromtimestamp(0)
@@ -73,7 +79,11 @@ class VideoInfo:
         :return: stream name
         """
 
-        matched = self.title_pattern.search(self.html_text).group(1)
+        # just even using re makes everything insanely slow. Doing this mess to fix it
+        split = self.html_text.split("<title>")[-1]
+        matched = split.split("</title>")[0]
+
+        # matched = self.title_pattern.search(self.html_text).group(1)
 
         print("Got title ", matched)
 
@@ -163,15 +173,14 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
 
     data = get_html("channel/" + channel_id)
 
-    # just even using re makes everything insanely slow.
     # candidates = "\n".join(tuple(line for line in data.split(",") if "videoIds" in line))
     # candidates = "\n".join(tuple(line for line in re.split(r"[,;\n\s>]", data) if "videoIds" in line))
 
-    split = "\n".join(line for line in data.split("\n") if "videoIds" in line)
-    split = "\n".join(line for line in split.split("<") if "videoIds" in line)
-    split = "\n".join(line for line in split.split(",") if "videoIds" in line)
-    split = "\n".join(line for line in split.split("{") if "videoIds" in line)
-    split = "\n".join(line for line in split.split("\n") if "videoIds" in line)
+    # just even using re makes everything insanely slow.
+    split = "".join(line for line in data.split("\n") if "videoIds" in line)
+    split = "".join(line for line in split.split("<") if "videoIds" in line)
+    split = "".join(line for line in split.split(",") if "videoIds" in line)
+    split = "".join(line for line in split.split("{") if "videoIds" in line)
 
     print(split)
 
