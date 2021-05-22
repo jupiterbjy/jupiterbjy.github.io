@@ -13,6 +13,7 @@ from typing import Tuple
 from browser import document, html, window
 
 
+started_time = datetime.datetime.now()
 youtube_image_url = "https://i.ytimg.com/vi/{}/mqdefault.jpg"
 # default, hqdefault, mqdefault, sddefault, maxresdefault + variants like maxresdefault_live
 
@@ -117,11 +118,15 @@ class UI:
 
         img = html.IMG(className="Thumbnail", src=image_link)
         link = html.LINK(vid.title, className="VideoLink", href=vid.url, style={"display": "block"})
-        start_time = html.DIV(vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p"), className="TimeString")
+
+        date_string = vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p")
+        diff_string = f"{(vid.start_time - started_time).total_seconds() // 3600} hr left"
+
+        time_string = html.DIV(f"{date_string} / {diff_string}", className="TimeString")
 
         table = html.TABLE()
 
-        table <= html.TR(html.TD(img, rowspan=2) + link + html.TR(start_time))
+        table <= html.TR(html.TD(img, rowspan=2) + link + html.TR(time_string))
 
         self.upcoming_div <= table
 
