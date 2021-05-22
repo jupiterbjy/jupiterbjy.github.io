@@ -122,8 +122,13 @@ def video_list_gen(channel_id: str, max_results: int) -> Tuple[str, ...]:
 
 def main():
 
+    ui = UI()
+
     vid_list = video_list_gen("UC9wbdkwvYVSgKtOZ3Oov98g", 3)
     vid_instances = map(VideoInfo, vid_list)
 
     for vid_info in (vid for vid in vid_instances if vid):
-        UI.insert_new_video(vid_info)
+        ui.insert_new_video(vid_info)
+
+
+main()
