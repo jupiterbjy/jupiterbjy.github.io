@@ -29,6 +29,7 @@ class VideoInfo:
     title_pattern = re.compile(r'<title>([^"]*)</title>')
 
     def __init__(self, vid_id: str):
+        print("Initializing VideoInfo for", vid_id)
 
         self.vid_id = vid_id
         self.url = f"https://www.youtube.com/watch?v={vid_id}"
@@ -38,6 +39,8 @@ class VideoInfo:
 
         self.start_time = self.get_timestamp()
         self.title = self.get_title()
+
+        print("Initialized VideoInfo for", vid_id)
 
     def __bool__(self):
         return self.is_upcoming
@@ -56,6 +59,8 @@ class VideoInfo:
             self.is_upcoming = False
             return datetime.datetime.fromtimestamp(0)
 
+        print("Got timestamp ", matched)
+
         return datetime.datetime.fromtimestamp(int(matched))
 
     def get_title(self):
@@ -66,6 +71,9 @@ class VideoInfo:
         """
 
         matched = self.title_pattern.search(self.html_text).group(1)
+
+        print("Got title ", matched)
+
         return matched.removesuffix(" - YouTube")
 
 
@@ -145,7 +153,7 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
     :return: Tuple of unique videos, ordered.
     """
 
-    print("On video_list_gen, param:", channel_id, max_results)
+    print("On video_list, param:", channel_id, max_results)
 
     # Compile regex pattern
     pattern = re.compile(r'videoIds"[^"]*"([^"]*)')
