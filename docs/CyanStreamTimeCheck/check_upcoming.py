@@ -94,8 +94,9 @@ class UI:
         timezone_data = html.DIV(get_timezone(), id="timezone-info")
         self.streams_count_div = html.DIV("No upcoming streams found.", id="StreamsCount")
         self.activity = html.DIV("Loading scripts, please be patient.")
+        self.refresh = html.A("Refresh", href=window.location.href)
 
-        self.main_div <= timezone_data
+        self.main_div <= html.TR(timezone_data + self.refresh)
         self.main_div <= self.activity
         self.main_div <= self.streams_count_div
 
@@ -117,10 +118,10 @@ class UI:
         image_link = youtube_image_url.format(vid.vid_id)
 
         img = html.IMG(className="Thumbnail", src=image_link)
-        link = html.LINK(vid.title, className="VideoLink", href=vid.url, style={"display": "block"})
+        link = html.A(vid.title, className="VideoLink", href=vid.url, target="_blank", style={"display": "block"}, )
 
         date_string = vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p")
-        diff_string = f"{(vid.start_time - started_time).total_seconds() // 3600} hr left"
+        diff_string = f"{(vid.start_time - started_time).total_seconds() / 3600:.2} hr left"
 
         time_string = html.DIV(f"{date_string} / {diff_string}", className="TimeString")
 
@@ -132,6 +133,9 @@ class UI:
 
         self.streams_count += 1
         self.streams_count_div.text = f"{self.streams_count} upcoming streams found."
+
+    def show_refresh_link(self):
+        self.refresh.text = "refresh"
 
 
 def get_html(query: str) -> str:
@@ -203,5 +207,6 @@ def main():
 
     ui.activity.text = ""
 
+    ui.show_refresh_link()
 
 main()
