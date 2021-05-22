@@ -13,7 +13,7 @@ from typing import Tuple
 from browser import document, html, window
 
 
-youtube_image_url = "https://i.ytimg.com/vi/{}/hqdefault.jpg"
+youtube_image_url = "https://i.ytimg.com/vi/{}/mqdefault.jpg"
 # default, hqdefault, mqdefault, sddefault, maxresdefault + variants like maxresdefault_live
 
 
@@ -32,7 +32,7 @@ class VideoInfo:
     title_pattern = re.compile(r'<title>([^"]*)</title>')
 
     def __init__(self, vid_id: str):
-        print("Initializing VideoInfo for", vid_id)
+        ui.activity.text = f"Initializing VideoInfo for {vid_id}."
 
         self.vid_id = vid_id
         self.url = f"https://www.youtube.com/watch?v={vid_id}"
@@ -42,8 +42,6 @@ class VideoInfo:
 
         self.start_time = self.get_timestamp()
         self.title = self.get_title()
-
-        print("Initialized VideoInfo for", vid_id)
 
     def __bool__(self):
         return self.is_upcoming
@@ -68,8 +66,6 @@ class VideoInfo:
             self.is_upcoming = False
             return datetime.datetime.fromtimestamp(0)
 
-        print("Got timestamp ", matched)
-
         return datetime.datetime.fromtimestamp(int(matched))
 
     def get_title(self):
@@ -85,22 +81,21 @@ class VideoInfo:
 
         # matched = self.title_pattern.search(self.html_text).group(1)
 
-        print("Got title ", matched)
-
         return matched.removesuffix(" - YouTube")
 
 
 class UI:
     def __init__(self):
-        print("Building UI.")
 
         self.main_div = html.DIV(id="Main")
         document <= self.main_div
 
         timezone_data = html.DIV(get_timezone(), id="timezone-info")
-        self.streams_count_div = html.DIV("No upcoming streams found.", id="timezone-info")
+        self.streams_count_div = html.DIV("No upcoming streams found.", id="StreamsCount")
+        self.activity = html.DIV("Loading scripts, please be patient.")
 
         self.main_div <= timezone_data
+        self.main_div <= self.activity
         self.main_div <= self.streams_count_div
 
         self.upcoming_div = html.DIV(className="UpcomingVideoFeed")
@@ -109,8 +104,6 @@ class UI:
 
         self.streams_count = 0
 
-        print("Building UI finished.")
-
     def insert_new_video(self, vid: VideoInfo):
         """
         Add new upcoming video to feed.
@@ -118,15 +111,17 @@ class UI:
         :param vid: VideoInfo instance containing valid upcoming stream information.
         """
 
-        print("Inserting new video", vid)
+        ui.activity.text = f"Inserting new video {vid.vid_id}."
 
         image_link = youtube_image_url.format(vid.vid_id)
 
         img = html.IMG(className="Thumbnail", src=image_link)
-        link = html.LINK(vid.title, className="VideoLink", href=vid.url)
+        link = html.LINK(vid.title, className="VideoLink", href=vid.url, style={"display": "block"})
         start_time = html.DIV(vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p"), className="TimeString")
 
-        table = html.TABLE(html.TR(html.TD(img, rowspan=2)), html.TR(link), html.TR(start_time))
+        table = html.TABLE()
+
+        table <= html.TR(html.TD(img, rowspan=2) + link + html.TR(start_time))
 
         self.upcoming_div <= table
 
@@ -141,7 +136,7 @@ def get_html(query: str) -> str:
     :return: string of html data
     """
 
-    print("Fetching html for", query)
+    ui.activity.text = f"Fetching html for {query}."
 
     req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
     html_ = req.read()
@@ -153,7 +148,6 @@ def get_html(query: str) -> str:
         # It's already decoded!
         data = html_
 
-    print(f"Fetched", len(data))
     return data
 
 
@@ -166,7 +160,7 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
     :return: Tuple of unique videos, ordered.
     """
 
-    print("On video_list, param:", channel_id, max_results)
+    ui.activity.text = f"On video_list, param: {channel_id}, {max_results}."
 
     # Compile regex pattern
     pattern = re.compile(r'videoIds"[^"]*"([^"]*)')
@@ -182,14 +176,13 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
     split = "".join(line for line in split.split(",") if "videoIds" in line)
     split = "".join(line for line in split.split("{") if "videoIds" in line)
 
-    print(split)
-
     vid_ids = pattern.findall(split)
-
-    print("Regex pattern match complete")
 
     # Fetch unique keys in appearing order, streams are likely to appear at top.
     return tuple(k for (k, v), _ in zip(itertools.groupby(vid_ids), range(max_results)))
+
+
+ui = UI()
 
 
 def main():
@@ -197,15 +190,13 @@ def main():
     Main routine
     """
 
-    print("On main")
-
-    ui = UI()
-
     vid_list = video_list("UC9wbdkwvYVSgKtOZ3Oov98g", 3)
     vid_instances = map(VideoInfo, vid_list)
 
     for vid_info in (vid for vid in vid_instances if vid):
         ui.insert_new_video(vid_info)
+
+    ui.activity.text = ""
 
 
 main()
