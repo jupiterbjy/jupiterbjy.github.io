@@ -18,6 +18,9 @@ youtube_image_url = "https://i.ytimg.com/vi/{}/hqdefault.jpg"
 
 
 def get_timezone():
+    """
+    Get timezone using javascript function. Unfortunately without pytz I can't utilize this.
+    """
     return window.Intl.DateTimeFormat().resolvedOptions().timeZone
 
 
@@ -88,12 +91,18 @@ class UI:
         print("Building UI finished.")
 
     def insert_new_video(self, vid: VideoInfo):
+        """
+        Add new upcoming video to feed.
+
+        :param vid: VideoInfo instance containing valid upcoming stream information.
+        """
+
         print("Inserting new video", vid)
 
         image_link = youtube_image_url.format(vid.vid_id)
 
         img = html.IMG(className="Thumbnail", src=image_link)
-        link = html.LINK(vid.title, className="VideoLink",href=vid.url)
+        link = html.LINK(vid.title, className="VideoLink", href=vid.url)
         start_time = html.DIV(vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p"), className="TimeString")
 
         table = html.TABLE(html.TR(html.TD(img, rowspan=2)), html.TR(link), html.TR(start_time))
@@ -105,6 +114,12 @@ class UI:
 
 
 def get_html(query: str) -> str:
+    """
+    Fetches HTML from proxy
+    :param query: url excluding youtube domain.
+    :return: string of html data
+    """
+
     print("Fetching html for", query)
 
     req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
@@ -121,25 +136,36 @@ def get_html(query: str) -> str:
     return data
 
 
-def video_list_gen(channel_id: str, max_results: int) -> Tuple[str, ...]:
+def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
+    """
+    List topmost `max_results` number of videos in channel.
+
+    :param channel_id: Channel ID
+    :param max_results: number of video to extract
+    :return: Tuple of unique videos, ordered.
+    """
+
     print("On video_list_gen, param:", channel_id, max_results)
 
     # Compile regex pattern
     pattern = re.compile(r'videoIds"[^"]*"([^"]*)')
 
-    while True:
-        vid_ids = pattern.findall(get_html("channel/" + channel_id))
+    vid_ids = pattern.findall(get_html("channel/" + channel_id))
 
-        # Fetch unique keys in appearing order, streams are likely to appear at top.
-        yield tuple(k for (k, v), _ in zip(itertools.groupby(vid_ids), range(max_results)))
+    # Fetch unique keys in appearing order, streams are likely to appear at top.
+    return tuple(k for (k, v), _ in zip(itertools.groupby(vid_ids), range(max_results)))
 
 
 def main():
+    """
+    Main routine
+    """
+
     print("On main")
 
     ui = UI()
 
-    vid_list = video_list_gen("UC9wbdkwvYVSgKtOZ3Oov98g", 3)
+    vid_list = video_list("UC9wbdkwvYVSgKtOZ3Oov98g", 3)
     vid_instances = map(VideoInfo, vid_list)
 
     for vid_info in (vid for vid in vid_instances if vid):
