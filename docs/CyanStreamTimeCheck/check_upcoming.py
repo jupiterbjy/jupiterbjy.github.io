@@ -163,13 +163,19 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
 
     data = get_html("channel/" + channel_id)
 
-    # Multiple
+    # just even using re makes everything insanely slow.
     # candidates = "\n".join(tuple(line for line in data.split(",") if "videoIds" in line))
-    candidates = "\n".join(tuple(line for line in re.split(r"[,;\n\s>]", data) if "videoIds" in line))
+    # candidates = "\n".join(tuple(line for line in re.split(r"[,;\n\s>]", data) if "videoIds" in line))
 
-    print(candidates)
+    split = "\n".join(line for line in data.split("\n") if "videoIds" in line)
+    split = "\n".join(line for line in split.split("<") if "videoIds" in line)
+    split = "\n".join(line for line in split.split(",") if "videoIds" in line)
+    split = "\n".join(line for line in split.split("{") if "videoIds" in line)
+    split = "\n".join(line for line in split.split("\n") if "videoIds" in line)
 
-    vid_ids = pattern.findall(candidates)
+    print(split)
+
+    vid_ids = pattern.findall(split)
 
     print("Regex pattern match complete")
 
