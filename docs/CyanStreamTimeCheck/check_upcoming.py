@@ -96,11 +96,15 @@ class UI:
         self.activity = html.DIV("Loading scripts, please be patient.")
         self.refresh = html.A("Refresh", href=window.location.href)
 
-        self.main_div <= html.TR(timezone_data + self.refresh)
+        div = html.DIV()
+        div <= timezone_data
+        div <= self.refresh
+
+        self.main_div <= div
         self.main_div <= self.activity
         self.main_div <= self.streams_count_div
 
-        self.upcoming_div = html.DIV(className="UpcomingVideoFeed")
+        self.upcoming_div = html.DIV(Class="UpcomingVideoFeed")
 
         self.main_div <= self.upcoming_div
 
@@ -117,15 +121,15 @@ class UI:
 
         image_link = youtube_image_url.format(vid.vid_id)
 
-        img = html.IMG(className="Thumbnail", src=image_link)
-        link = html.A(vid.title, className="VideoLink", href=vid.url, target="_blank", style={"display": "block"}, )
+        img = html.IMG(Class="Thumbnail", src=image_link)
+        link = html.A(vid.title, Class="VideoLink", href=vid.url, target="_blank", style={"display": "block"}, )
 
         date_string = vid.start_time.strftime("%Y-%m-%d %a - %I:%M %p")
         diff_string = f"{(vid.start_time - started_time).total_seconds() / 3600:.2} hr left"
 
-        time_string = html.DIV(f"{date_string} / {diff_string}", className="TimeString")
+        time_string = html.DIV(f"{date_string} / {diff_string}", Class="TimeString")
 
-        table = html.TABLE()
+        table = html.TABLE(Class="entry")
 
         table <= html.TR(html.TD(img, rowspan=2) + link + html.TR(time_string))
 
@@ -146,8 +150,12 @@ def get_html(query: str) -> str:
     """
 
     ui.activity.text = f"Fetching html for {query}."
+    try:
+        req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
+    except Exception as err:
+        ui.activity.text = f"Got Error {err}. Make sure browser is in desktop mode!"
+        raise
 
-    req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
     html_ = req.read()
 
     # If server has brain, it has to be utf8.
