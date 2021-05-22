@@ -68,6 +68,7 @@ class VideoInfo:
 
 class UI:
     def __init__(self):
+        print("Building UI.")
 
         self.main_div = html.DIV(id="Main")
         assert document <= self.main_div
@@ -84,7 +85,10 @@ class UI:
 
         self.streams_count = 0
 
+        print("Building UI finished.")
+
     def insert_new_video(self, vid: VideoInfo):
+        print("Inserting new video", vid)
 
         image_link = youtube_image_url.format(vid.vid_id)
 
@@ -101,6 +105,8 @@ class UI:
 
 
 def get_html(query: str) -> str:
+    print("Fetching html for", query)
+
     req = request.urlopen(f"https://nyarukoishi.mooo.com/yt_proxy/{query}")
     html_ = req.read()
 
@@ -110,10 +116,13 @@ def get_html(query: str) -> str:
     except AttributeError:
         # It's already decoded!
         data = html_
+
+    print(f"Fetched", len(data))
     return data
 
 
 def video_list_gen(channel_id: str, max_results: int) -> Tuple[str, ...]:
+    print("On video_list_gen, param:", channel_id, max_results)
 
     # Compile regex pattern
     pattern = re.compile(r'videoIds"[^"]*"([^"]*)')
@@ -126,6 +135,7 @@ def video_list_gen(channel_id: str, max_results: int) -> Tuple[str, ...]:
 
 
 def main():
+    print("On main")
 
     ui = UI()
 
