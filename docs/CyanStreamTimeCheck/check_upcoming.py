@@ -163,11 +163,15 @@ def video_list(channel_id: str, max_results: int) -> Tuple[str, ...]:
 
     data = get_html("channel/" + channel_id)
 
-    candidates = "\n".join(tuple(line for line in data.split("\n") if "videoIds" in line))
+    # Multiple
+    # candidates = "\n".join(tuple(line for line in data.split(",") if "videoIds" in line))
+    candidates = "\n".join(tuple(line for line in re.split(r"[,;\n\s>]", data) if "videoIds" in line))
 
     print(candidates)
 
     vid_ids = pattern.findall(candidates)
+
+    print("Regex pattern match complete")
 
     # Fetch unique keys in appearing order, streams are likely to appear at top.
     return tuple(k for (k, v), _ in zip(itertools.groupby(vid_ids), range(max_results)))
