@@ -24,10 +24,10 @@ FETCH_LIM = 3
 CHANNEL_ID = "UC9wbdkwvYVSgKtOZ3Oov98g"
 
 # Proxy source, and queries for youtube. Proxy server should return json.
-PROXY_SOURCE = "https://yt-data.cyannyan.workers.dev/"
-# PROXY_SOURCE = "https://nyarukoishi.mooo.com/yt_proxy/"
-VIDEO_QUERY = "video/"
-# VIDEO_QUERY = "watch?v="
+# PROXY_SOURCE = "https://yt-data.cyannyan.workers.dev/"
+PROXY_SOURCE = "https://nyarukoishi.mooo.com/yt_proxy/"
+# VIDEO_QUERY = "video/"
+VIDEO_QUERY = "watch?v="
 CHANNEL_QUERY = "channel/"
 
 # Pre-determined keys for returned json objects.
