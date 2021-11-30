@@ -7,5 +7,5 @@ Turns out I am still using brython in web, much wow.
 - [PaulPio-PIXI Cubism Test](https://jupiterbjy.github.io/PaulPio_PIXI_Demo/)
 - [Brython-Console integration Test](https://jupiterbjy.github.io/Brython/)
 - [Brython demo 1 - Japanese Month/Day practice](https://jupiterbjy.github.io/JpnPractice/)
-- [Cyannyan's upcoming live stream checker](http://jupiterbjy.github.io/docs/CyanStreamTimeCheck/)
-- [Query-able Live2d Web Viewer](http://jupiterbjy.github.io/SimpleLive2dViewer)
+- [Cyannyan's upcoming live stream checker](http://jupiterbjy.github.io/CyanStreamTimeCheck/)
+- [Query-able Live2d Web Viewer](http://jupiterbjy.github.io/SimpleLive2dViewer/)
