@@ -1,0 +1,3 @@
+[submodule ".\\docs\\SimpleLive2dViewer"]
+	path = .\\docs\\SimpleLive2dViewer
+	url = https://github.com/jupiterbjy/SimpleLive2dViewer
