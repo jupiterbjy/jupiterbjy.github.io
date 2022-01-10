@@ -1,6 +1,0 @@
-[submodule "./docs/SimpleLive2dViewer"]
-	path = ./docs/SimpleLive2dViewer
-	url = https://github.com/jupiterbjy/SimpleLive2dViewer
-[submodule "SimpleLive2dViewer"]
-	path = SimpleLive2dViewer
-	url = https://github.com/jupiterbjy/SimpleLive2dViewer
