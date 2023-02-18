@@ -42,7 +42,7 @@ function model_list_url(){
     const src_cdn = [
         "guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
         "guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json",
-        "jupiterbjy/Live2DPractice-Cyannyan/CyanSD/CyanSD.model3.json"
+        "jupiterbjy/Live2DPractice-Cyannyan/CyanSD/CyanSD.model3.json",
         // "imuncle/live2d/model/22/model.default.json",
         "imuncle/live2d/model/22/model.2016.xmas.1.json",
         "imuncle/live2d/model/22/model.2016.xmas.2.json",
