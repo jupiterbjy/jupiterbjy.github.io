@@ -38,8 +38,8 @@ function model_list_url(){
     const source_1 = [
         "guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
         "guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json",
-        "imuncle/live2d/live2d_3/model/Azue%20Lane(JP)/xixuegui_4/xixuegui_4.model3.json",
-        "imuncle/live2d/model/22/model.default.json",
+        "jupiterbjy/Live2DPractice-Cyannyan/CyanSD/CyanSD.model3.json"
+        // "imuncle/live2d/model/22/model.default.json",
         "imuncle/live2d/model/22/model.2016.xmas.1.json",
         "imuncle/live2d/model/22/model.2016.xmas.2.json",
         "imuncle/live2d/model/22/model.2017.school.json",
