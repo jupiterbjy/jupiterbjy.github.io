@@ -1,0 +1,110 @@
+<style>
+    @import "/common.css";
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em 3em;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+    }
+
+
+    .footer-email {
+        text-decoration: none;
+        /*color: inherit;*/
+        font-size: 0.8em;
+    }
+
+    .footer-col {
+        display: flex;
+    }
+
+    .footer-col-link {
+    }
+
+    .footer-col-link ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        place-items: center;
+        gap: 1em;
+    }
+
+    .footer-col-link ul li {
+    }
+
+    .footer-col-link ul li a img {
+        height: 2em;
+        vertical-align: middle;
+    }
+
+    .footer-col-desc {
+        justify-content: right;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1em;
+    }
+
+    .footer-desc {
+        display: grid;
+        vertical-align: middle;
+        text-align: right;
+        place-items: center end;
+        font-size: 0.9em;
+    }
+
+    .footer-desc-icon {
+        height: 2.5em;
+    }
+
+    .footer-col-tail {
+        grid-column: 1 / span 2;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.65em;
+    }
+</style>
+<footer class="footer-container">
+    <div class="footer-col footer-col-desc">
+        <div class="footer-desc">
+            Manekineko wishing everyone a fortune
+            <a class="footer-email common-text-dim" href="mailto:jupiterbjy@gmail.com" target="_blank" rel="noopener noreferrer">jupiterbjy@gmail.com</a>
+        </div>
+        <img class="footer-desc-icon common-greyscale-img" src="/_optimized_svg/manekineko.svg">
+    </div>
+    <div class="footer-col footer-col-link">
+        <ul class="footer-link-ul">
+            <li class="footer-link-li">
+                <a href="https://github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/github.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://steamcommunity.com/id/jupiterbjy/" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/steam.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.thingiverse.com/jupiterbjy/designs" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/thingiverse.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.pixiv.net/users/13823148" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/pixiv.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.reddit.com/user/jupiterbjy/submitted/" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/reddit.svg">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-col footer-col-tail">
+        Random minimal site handcrafted using PyCharm, Inkscape & Python
+    </div>
+</footer>

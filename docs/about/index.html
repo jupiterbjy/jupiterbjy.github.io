@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>About</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/template.css">
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    @import "/common.css";
+
+    .header-container {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+        margin: 1em;
+    }
+
+    .header-col {
+        display: flex;
+        place-items: center;
+    }
+
+    .header-col-title {
+        margin-left: 0.1em;
+    }
+
+    .header-col-link {
+        place-items: center end;
+    }
+
+    .header-col-link ol {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+
+    .header-link {
+        display: inline-block;
+    }
+
+    .header-link:after {
+        content: "/";
+        margin: 0 0.5em 0 0.5em;
+
+        color: #222222;
+
+        @media (prefers-color-scheme: dark) {
+            color: #bbbbbb;
+        }
+    }
+
+    .header-link:last-child:after {
+        content: "";
+        margin: 0 0.5em 0 0.2em;
+    }
+
+</style>
+
+<header class="header-container">
+    <div class="header-col header-col-title">
+        <a class="header-title common-text-bright" href="/">Very test site</a>
+    </div>
+    <div class="header-col"> </div>
+    <nav class="header-col header-col-link">
+        <ol>
+            <li class="header-link">
+                <a class="common-text-bright" href="/posts/">Posts</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/toy_projects/">Toy Projects</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/about/">About</a>
+            </li>
+        </ol>
+    </nav>
+</header>
+
+
+<hr>
+
+<div style="text-align: center;">
+    <div class="common-text-dim">WORK_IN_PROGRESS 0</div>
+</div>
+
+<br>
+<br>
+
+<article class="markdown-body">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
+<!--
+REQUIRES FCKING LOCALHOST NOT 127.0.0.1 WHEN LOCAL TESTING, rip my 8 hours.
+In firefox all 127.0.0.1 requests will go unencrypted & HTTP/1.1,
+while localhost goes encrypted & HTTP/3 even.
+-->
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+  mermaid.initialize({ startOnLoad:true })
+</script>
+
+<!-- HEADER
+title: About
+date: 2025-12-28 05:00:00 +0900
+layout: post
+plugins: mathjax mermaid
+-->
+<h1>About</h1>
+<p><a href="https://www.pixiv.net/artworks/110677887" target="_blank" rel="noopener noreferrer"><img height="150" src="maneki_bw_neko.png"></a>
+<a href="https://www.pixiv.net/artworks/71719463" target="_blank" rel="noopener noreferrer"><img height="150" src="manekineko_the_first.png"></a>
+<a href="https://www.pixiv.net/artworks/121485486" target="_blank" rel="noopener noreferrer"><img height="150" src="bday.png"></a>
+<a href="https://www.pixiv.net/artworks/94789989" target="_blank" rel="noopener noreferrer"><img height="150" src="neko_in_a_box.png"></a></p>
+<p>Manekineko wishing everyone a fortune, hobby pythonist living by <em>Zen of Python</em>.</p>
+<br>
+<h2>Contacts/Links</h2>
+<p><a href="mailto:jupiterbjy@gmail.com" target="_blank" rel="noopener noreferrer">jupiterbjy@gmail.com</a></p>
+<h4>Code related</h4>
+<ul>
+<li><a href="https://github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">github</a></li>
+<li><a href="https://gist.github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">github gist</a></li>
+<li><a href="https://stackoverflow.com/users/10909029/jupiterbjy" target="_blank" rel="noopener noreferrer">stackoverflow</a></li>
+</ul>
+<h4>Creation-ish</h4>
+<ul>
+<li>2D Scribblings - <a href="https://www.pixiv.net/users/13823148" target="_blank" rel="noopener noreferrer">pixiv</a></li>
+<li>3D Printing - <a href="https://www.thingiverse.com/jupiterbjy" target="_blank" rel="noopener noreferrer">Thingiverse</a></li>
+<li>Random toy projects &amp; 2D Timelapses - <a href="https://www.youtube.com/@jupiterbjy" target="_blank" rel="noopener noreferrer">youtube</a></li>
+</ul>
+<h4>ETC</h4>
+<ul>
+<li><a href="https://steamcommunity.com/id/jupiterbjy" target="_blank" rel="noopener noreferrer">Steam</a></li>
+<li><a href="https://www.reddit.com/user/jupiterbjy/" target="_blank" rel="noopener noreferrer">Reddit</a></li>
+<li><a href="https://discordapp.com/users/426701488283189249" target="_blank" rel="noopener noreferrer">Discord</a></li>
+</ul>
+<pre><code class="language-mermaid">graph TD;
+    A[Github] --&gt; B[Gist];
+    A --&gt; C[Stackoverflow];
+</code></pre>
+<br>
+<h2>Hobbies</h2>
+<p>This weirdo has a pretty wide range of it:</p>
+<ul>
+<li>Coding</li>
+<li>Scribbling</li>
+<li>Simple Modeling</li>
+<li>3D Printing</li>
+<li>SFFPC(Small Form Factor PC) builds</li>
+<li>PC Case modification</li>
+<li>Self hosting home server</li>
+<li>Gaming (Obviously)</li>
+</ul>
+<p>And for what I work on, I prefer it to be opened in hope of it being helpful to others - which
+can be found on respective links in the contacts section.</p>
+<br>
+<h2>Some lang preference</h2>
+<img width="630" src="oc2.png" />
+<table>
+<thead>
+<tr>
+<th>Lang</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python</td>
+<td>Loves EAFP, Loves Zen of Python, love PEP8</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>Does not like fighting with implicit hell &amp; Rule of 0/3/5 but will still do it</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Will do if gun's pointed at me</td>
+</tr>
+<tr>
+<td>C#</td>
+<td>Only extremely limited usage, Will do if gun's pointed at me</td>
+</tr>
+<tr>
+<td>Javascript</td>
+<td>Loves to go pure CSS/JS/HTML &amp; suffer, or mix with Brython like weirdo</td>
+</tr>
+<tr>
+<td>Java</td>
+<td>Will do if gun's pointed at me</td>
+</tr>
+<tr>
+<td>SPARC</td>
+<td>Won't do even if gun's pointed at me(hopefully)</td>
+</tr>
+<tr>
+<td>GDScript</td>
+<td>Enjoy using with love-hate attitude</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+<br>
+<br>
+
+<hr>
+
+<style>
+    @import "/common.css";
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em 3em;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+    }
+
+
+    .footer-email {
+        text-decoration: none;
+        /*color: inherit;*/
+        font-size: 0.8em;
+    }
+
+    .footer-col {
+        display: flex;
+    }
+
+    .footer-col-link {
+    }
+
+    .footer-col-link ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        place-items: center;
+        gap: 1em;
+    }
+
+    .footer-col-link ul li {
+    }
+
+    .footer-col-link ul li a img {
+        height: 2em;
+        vertical-align: middle;
+    }
+
+    .footer-col-desc {
+        justify-content: right;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1em;
+    }
+
+    .footer-desc {
+        display: grid;
+        vertical-align: middle;
+        text-align: right;
+        place-items: center end;
+        font-size: 0.9em;
+    }
+
+    .footer-desc-icon {
+        height: 2.5em;
+    }
+
+    .footer-col-tail {
+        grid-column: 1 / span 2;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.65em;
+    }
+</style>
+<footer class="footer-container">
+    <div class="footer-col footer-col-desc">
+        <div class="footer-desc">
+            Manekineko wishing everyone a fortune
+            <a class="footer-email common-text-dim" href="mailto:jupiterbjy@gmail.com" target="_blank" rel="noopener noreferrer">jupiterbjy@gmail.com</a>
+        </div>
+        <img class="footer-desc-icon common-greyscale-img" src="/_optimized_svg/manekineko.svg">
+    </div>
+    <div class="footer-col footer-col-link">
+        <ul class="footer-link-ul">
+            <li class="footer-link-li">
+                <a href="https://github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/github.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://steamcommunity.com/id/jupiterbjy/" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/steam.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.thingiverse.com/jupiterbjy/designs" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/thingiverse.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.pixiv.net/users/13823148" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/pixiv.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.reddit.com/user/jupiterbjy/submitted/" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/reddit.svg">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-col footer-col-tail">
+        Random minimal site handcrafted using PyCharm, Inkscape & Python
+    </div>
+</footer>
+
+
+</html>

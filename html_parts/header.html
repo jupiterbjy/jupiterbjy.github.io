@@ -1,0 +1,77 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    @import "/common.css";
+
+    .header-container {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+        margin: 1em;
+    }
+
+    .header-col {
+        display: flex;
+        place-items: center;
+    }
+
+    .header-col-title {
+        margin-left: 0.1em;
+    }
+
+    .header-col-link {
+        place-items: center end;
+    }
+
+    .header-col-link ol {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+
+    .header-link {
+        display: inline-block;
+    }
+
+    .header-link:after {
+        content: "/";
+        margin: 0 0.5em 0 0.5em;
+
+        color: #222222;
+
+        @media (prefers-color-scheme: dark) {
+            color: #bbbbbb;
+        }
+    }
+
+    .header-link:last-child:after {
+        content: "";
+        margin: 0 0.5em 0 0.2em;
+    }
+
+</style>
+
+<header class="header-container">
+    <div class="header-col header-col-title">
+        <a class="header-title common-text-bright" href="/">Very test site</a>
+    </div>
+    <div class="header-col"> </div>
+    <nav class="header-col header-col-link">
+        <ol>
+            <li class="header-link">
+                <a class="common-text-bright" href="/posts/">Posts</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/toy_projects/">Toy Projects</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/about/">About</a>
+            </li>
+        </ol>
+    </nav>
+</header>

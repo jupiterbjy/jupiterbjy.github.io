@@ -1,0 +1,67 @@
+/* This is pain to write... */
+
+@font-face {
+    font-family: JetBrains Mono;
+    src:
+        local("JetBrains Mono"),
+        url("/JetBrainsMono-Regular.woff2");
+}
+
+@font-face {
+    font-family: Noto Sans;
+    src:
+        local("Noto Sans"),
+        local("Noto Sans KR"),
+        local("Noto Sans JP"),
+        url("/noto-sans-kr-v38-korean_latin-regular.woff2"),
+        url("/noto-sans-jp-v55-japanese-regular.woff2");
+}
+
+html {
+    font-family: "Noto Sans", sans-serif;
+
+    background-color: white;
+    color: black;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: #1e1f22;
+        color: white;
+    }
+}
+
+
+hr {
+    color: #222222;
+
+    @media (prefers-color-scheme: dark) {
+        color: #bbbbbb;
+    }
+}
+
+.common-text-bright {
+    text-decoration: none;
+    color: black;
+
+    @media (prefers-color-scheme: dark) {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+
+.common-text-dim {
+    text-decoration: none;
+    color: #222222;
+
+    @media (prefers-color-scheme: dark) {
+        text-decoration: none;
+        color: #bbbbbb;
+    }
+}
+
+
+.common-greyscale-img {
+    @media (prefers-color-scheme: dark) {
+        filter: invert(1);
+    }
+}
