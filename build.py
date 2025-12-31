@@ -99,7 +99,12 @@ def doc_header_parser(matched_str: str) -> DocHeader:
     result = DocHeader(title="", date="", layout="", tags=[], plugins=[])
 
     for line in matched_str.splitlines():
-        key, val = map(str.strip, line.split(":", maxsplit=1))
+        try:
+            key, val = map(str.strip, line.split(":", maxsplit=1))
+        except ValueError:
+            # probably no value specified e.g. (`plugins:` then empty)
+            print(f"Ignoring invalid key: {line}")
+            continue
 
         match key:
             case "title":
