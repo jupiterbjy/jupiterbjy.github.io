@@ -4,16 +4,16 @@ we doin' it manually
 """
 
 import pathlib
+
 import trio
-
-# from functools import partial
-
 from selenium import webdriver
 
 from watchdog_file_events_m import start_watchdog, FileSystemEvent
 from dumb_trio_server_O import serve_files
 import build
 
+
+# --- Config ---
 
 ROOT = pathlib.Path(__file__).parent
 
@@ -28,6 +28,9 @@ REFRESH_MIN_INTERVAL = 1
 ADDR = "127.0.0.1"
 PORT = 8000
 URL = f"http://{ADDR}:{PORT}/"
+
+
+# --- Utilities ---
 
 
 class ANSI:
@@ -46,6 +49,21 @@ class ANSI:
         """Colored print"""
 
         print(f"{cls._table[color]}{sep.join(args)}{cls._end}", **kwargs)
+
+
+def refresh_all_tabs(wd: webdriver.Firefox):
+    """Refreshes all selenium tabs"""
+
+    # cur_handle = wd.current_window_handle
+
+    for handle in wd.window_handles:
+        wd.switch_to.window(handle)
+        wd.refresh()
+
+    # wd.switch_to.window(cur_handle)
+
+
+# --- Logics ---
 
 
 async def main():
@@ -99,7 +117,7 @@ async def main():
                         build.main()
 
                         ANSI.print("Reloading page", color="YELLOW")
-                        await trio.to_thread.run_sync(driver.refresh)
+                        await trio.to_thread.run_sync(refresh_all_tabs, driver)
 
                         ANSI.print("Update done!", color="GREEN")
                         update_required.clear()
@@ -111,6 +129,8 @@ async def main():
 
                 nursery.cancel_scope.cancel()
 
+
+# --- Drivers ---
 
 if __name__ == "__main__":
     try:
