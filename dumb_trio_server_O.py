@@ -55,6 +55,21 @@ def sanitize_path(root: pathlib.Path, rel_path: str) -> pathlib.Path | None:
     return p
 
 
+def read_text_utf8(path: pathlib.Path) -> str:
+    """Attempts to read file as UTF8 text, then retries as native encoding.
+
+    Raises:
+        UnicodeDecodeError: If file can't be open as either utf8 or system native encoding.
+    """
+
+    try:
+        return path.read_text("utf8")
+    except UnicodeDecodeError:
+        pass
+
+    return path.read_text()
+
+
 class HTTPUtils:
     """HTTP Header creation helper class"""
 
@@ -63,6 +78,35 @@ class HTTPUtils:
         403: " 403 Forbidden",
         404: " 404 Not Found",
         405: " 405 Method Not Allowed",
+    }
+
+    _FILE_TYPE_MAP: dict[str, str] = {
+        ".txt": "text/plain",
+        ".md": "text/plain",
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "text/javascript",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".gif": "image/gif",
+        ".svg": "image/svg+xml",
+        ".ico": "image/x-icon",
+        ".webp": "image/webp",
+        ".mp4": "video/mp4",
+        ".webm": "video/webm",
+        ".ogg": "video/ogg",
+        ".pdf": "application/pdf",
+        ".json": "application/json",
+    }
+
+    _TEXT_EXT: set[str] = {
+        ".txt",
+        ".md",
+        ".html",
+        ".css",
+        ".js",
+        ".json",
     }
 
     @classmethod
@@ -121,67 +165,16 @@ class HTTPUtils:
     @classmethod
     def create_file_resp(cls, http_ver, path: pathlib.Path) -> tuple[str, bytes]:
         """Attempts to automatically determine type based on file extension and return header/body pair."""
-        match path.suffix.lower():
-            case ".txt" | ".md":
-                return cls.create_data_resp(
-                    http_ver, "text/plain", path.read_text("utf8").encode("utf8")
-                )
 
-            case ".html":
-                return cls.create_data_resp(
-                    http_ver, "text/html", path.read_text("utf8").encode("utf8")
-                )
+        ext = path.suffix.lower()
+        content_type: str = cls._FILE_TYPE_MAP.get(ext, "application/octet-stream")
+        data: bytes = (
+            read_text_utf8(path).encode("utf8")
+            if ext in cls._TEXT_EXT
+            else path.read_bytes()
+        )
 
-            case ".css":
-                return cls.create_data_resp(
-                    http_ver, "text/css", path.read_text("utf8").encode("utf8")
-                )
-
-            case ".js":
-                return cls.create_data_resp(
-                    http_ver, "text/javascript", path.read_text("utf8").encode("utf8")
-                )
-
-            case ".png":
-                return cls.create_data_resp(http_ver, "image/png", path.read_bytes())
-
-            case ".jpg" | ".jpeg":
-                return cls.create_data_resp(http_ver, "image/jpeg", path.read_bytes())
-
-            case ".gif":
-                return cls.create_data_resp(http_ver, "image/gif", path.read_bytes())
-
-            case ".svg":
-                return cls.create_data_resp(
-                    http_ver, "image/svg+xml", path.read_bytes()
-                )
-
-            case ".webp":
-                return cls.create_data_resp(http_ver, "image/webp", path.read_bytes())
-
-            case ".mp4":
-                return cls.create_data_resp(http_ver, "video/mp4", path.read_bytes())
-
-            case ".webm":
-                return cls.create_data_resp(http_ver, "video/webm", path.read_bytes())
-
-            case ".ogg":
-                return cls.create_data_resp(http_ver, "video/ogg", path.read_bytes())
-
-            case ".pdf":
-                return cls.create_data_resp(
-                    http_ver, "application/pdf", path.read_bytes()
-                )
-
-            case ".json":
-                return cls.create_data_resp(
-                    http_ver, "application/json", path.read_bytes()
-                )
-
-            case _:
-                return cls.create_data_resp(
-                    http_ver, "application/octet-stream", path.read_bytes()
-                )
+        return cls.create_data_resp(http_ver, content_type, data)
 
     @staticmethod
     def parse_req(raw_req: str) -> dict[str, str]:
@@ -251,11 +244,15 @@ def _generate_dir_listing_html(
     # prep link for stepping back. Will trigger for root but better for safeguarding
     try:
         parent_str = sanitized_abs_sub_path.parent.relative_to(root).as_posix()
+
+        # make sure it's absolute & ends with slash, otherwise relative resource access breaks
         if parent_str == ".":
-            parent_str = ""
+            parent_str = "/"
+        else:
+            parent_str = f"/{parent_str}/"
 
     except ValueError:
-        parent_str = ""
+        parent_str = "/"
 
     relative = quote(
         "/"
@@ -266,7 +263,7 @@ def _generate_dir_listing_html(
     lines: list[str] = [
         f'<meta charset="UTF-8">\n'
         f"<h1>Directory Listing for {relative}</h1>\n"
-        f'<a href="/{quote(parent_str)}">Go Up</a><br>'
+        f'<a href="{parent_str}">Go Up</a><br>'
     ]
 
     # sort stuff by name for each, so we can put dir first then file
@@ -281,7 +278,7 @@ def _generate_dir_listing_html(
 
         # if dir or html, then set href to it
         if sub_p.is_dir():
-            lines.append(f'D <a href="{relative}{path_name}">{sub_p.name}</a>')
+            lines.append(f'D <a href="{relative}{path_name}/">{sub_p.name}</a>')
 
         elif sub_p.suffix.lower() == ".html":
             lines.append(f'H <a href="{relative}{path_name}">{sub_p.name}</a>')
@@ -399,6 +396,9 @@ async def serve_files(
     port: int = 8000,
     verbose: bool = False,
 ):
+    # make sure root is absolute
+    root = root.resolve()
+
     print(
         f"Server Starting at http://{address}:{port}",
         f"-Root: {root}",
@@ -407,7 +407,11 @@ async def serve_files(
     )
 
     handler = tcp_handler_verbose if verbose else tcp_handler
-    await trio.serve_tcp(partial(handler, root=root), port, host=address)
+
+    try:
+        await trio.serve_tcp(partial(handler, root=root), port, host=address)
+    except* KeyboardInterrupt:
+        print("Server Stopped")
 
 
 if __name__ == "__main__":
