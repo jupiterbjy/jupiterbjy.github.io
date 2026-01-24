@@ -4,7 +4,19 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>About</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/template.css">
+    <link rel="stylesheet" href="/layout_post.css">
+
+    <!--
+    NOTE TO SELF:
+    https://stackoverflow.com/a/19590415/10909029
+    https://realfavicongenerator.net/
+    -->
+    <link rel="icon" type="image/png" href="/_favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/_favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/_favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/_favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="jupi.ghio" />
+    <link rel="manifest" href="/_favicon/site.webmanifest" />
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,7 +88,7 @@
                 <a class="common-text-bright" href="/posts/">Posts</a>
             </li>
             <li class="header-link">
-                <a class="common-text-bright" href="/toy_projects/">Toy Projects</a>
+                <a class="common-text-bright" href="/projects/">Toy Projects</a>
             </li>
             <li class="header-link">
                 <a class="common-text-bright" href="/about/">About</a>
@@ -96,61 +108,72 @@
 <br>
 
 <article class="markdown-body">
-<script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
-<!--
-REQUIRES FCKING LOCALHOST NOT 127.0.0.1 WHEN LOCAL TESTING, rip my 8 hours.
-In firefox all 127.0.0.1 requests will go unencrypted & HTTP/1.1,
-while localhost goes encrypted & HTTP/3 even.
--->
-
-<script type="module">
-  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
-  mermaid.initialize({ startOnLoad:true })
-</script>
-
 <!-- HEADER
 title: About
 date: 2025-12-28 05:00:00 +0900
 layout: post
-plugins: mathjax mermaid
 -->
 <h1>About</h1>
-<p><a href="https://www.pixiv.net/artworks/110677887" target="_blank" rel="noopener noreferrer"><img height="150" src="maneki_bw_neko.png"></a>
-<a href="https://www.pixiv.net/artworks/71719463" target="_blank" rel="noopener noreferrer"><img height="150" src="manekineko_the_first.png"></a>
-<a href="https://www.pixiv.net/artworks/121485486" target="_blank" rel="noopener noreferrer"><img height="150" src="bday.png"></a>
-<a href="https://www.pixiv.net/artworks/94789989" target="_blank" rel="noopener noreferrer"><img height="150" src="neko_in_a_box.png"></a></p>
+<table>
+<thead>
+<tr>
+<th><a href="https://www.pixiv.net/artworks/110677887"><img height="150" src="maneki_bw_neko.png"></a></th>
+<th><a href="https://www.pixiv.net/artworks/71719463"><img height="150" src="manekineko_the_first.png"></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.pixiv.net/artworks/121485486"><img height="150" src="bday.png"></a></td>
+<td><a href="https://www.pixiv.net/artworks/94789989"><img height="150" src="neko_in_a_box.png"></a></td>
+</tr>
+</tbody>
+</table>
 <p>Manekineko wishing everyone a fortune, hobby pythonist living by <em>Zen of Python</em>.</p>
+<ul>
+<li>
+<p><a href="/projects/coding/">Coding Projects</a></p>
+</li>
+<li>
+<p><a href="/projects/pc_hardware/">PC Builds Demo</a></p>
+</li>
+<li>
+<p><a href="/projects/3d_print/">3D Printing Demo</a></p>
+</li>
+<li>
+<p><a href="/projects/scribble/">Drawing-ish Demo</a></p>
+</li>
+</ul>
 <br>
 <h2>Contacts/Links</h2>
-<p><a href="mailto:jupiterbjy@gmail.com" target="_blank" rel="noopener noreferrer">jupiterbjy@gmail.com</a></p>
+<p><a href="mailto:jupiterbjy@gmail.com">jupiterbjy@gmail.com</a></p>
+<p>Some of the below are also available at the bottom of this page.</p>
 <h4>Code related</h4>
 <ul>
-<li><a href="https://github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">github</a></li>
-<li><a href="https://gist.github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">github gist</a></li>
-<li><a href="https://stackoverflow.com/users/10909029/jupiterbjy" target="_blank" rel="noopener noreferrer">stackoverflow</a></li>
+<li><a href="https://github.com/jupiterbjy">github</a></li>
+<li><a href="https://gist.github.com/jupiterbjy">github gist</a></li>
+<li><a href="https://stackoverflow.com/users/10909029/jupiterbjy">stackoverflow</a></li>
 </ul>
 <h4>Creation-ish</h4>
 <ul>
-<li>2D Scribblings - <a href="https://www.pixiv.net/users/13823148" target="_blank" rel="noopener noreferrer">pixiv</a></li>
-<li>3D Printing - <a href="https://www.thingiverse.com/jupiterbjy" target="_blank" rel="noopener noreferrer">Thingiverse</a></li>
-<li>Random toy projects &amp; 2D Timelapses - <a href="https://www.youtube.com/@jupiterbjy" target="_blank" rel="noopener noreferrer">youtube</a></li>
+<li>2D Scribblings - <a href="https://www.pixiv.net/users/13823148">pixiv</a></li>
+<li>3D Printing - <a href="https://www.thingiverse.com/jupiterbjy">Thingiverse</a></li>
+<li>Random toy projects &amp; 2D Timelapses - <a href="https://www.youtube.com/@jupiterbjy">youtube</a></li>
 </ul>
 <h4>ETC</h4>
 <ul>
-<li><a href="https://steamcommunity.com/id/jupiterbjy" target="_blank" rel="noopener noreferrer">Steam</a></li>
-<li><a href="https://www.reddit.com/user/jupiterbjy/" target="_blank" rel="noopener noreferrer">Reddit</a></li>
-<li><a href="https://discordapp.com/users/426701488283189249" target="_blank" rel="noopener noreferrer">Discord</a></li>
+<li><a href="https://steamcommunity.com/id/jupiterbjy">Steam</a></li>
+<li><a href="https://www.reddit.com/user/jupiterbjy/">Reddit</a></li>
+<li><a href="https://discordapp.com/users/426701488283189249">Discord</a></li>
 </ul>
-<pre><code class="language-mermaid">graph TD;
-    A[Github] --&gt; B[Gist];
-    A --&gt; C[Stackoverflow];
-</code></pre>
 <br>
 <h2>Hobbies</h2>
 <p>This weirdo has a pretty wide range of it:</p>
+<!--
+Didnt know but if there's no trailing slash in path, relative path use parent dir when requesting resource
+-->
 <ul>
 <li>Coding</li>
-<li>Scribbling</li>
+<li>2D Scribbling</li>
 <li>Simple Modeling</li>
 <li>3D Printing</li>
 <li>SFFPC(Small Form Factor PC) builds</li>
@@ -205,6 +228,7 @@ can be found on respective links in the contacts section.</p>
 </tr>
 </tbody>
 </table>
+<br>
 
 </article>
 
@@ -243,7 +267,7 @@ can be found on respective links in the contacts section.</p>
         margin: 0;
         padding: 0;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         place-items: center;
         gap: 1em;
     }
@@ -315,6 +339,11 @@ can be found on respective links in the contacts section.</p>
             <li class="footer-link-li">
                 <a href="https://www.reddit.com/user/jupiterbjy/submitted/" target="_blank" rel="noopener noreferrer">
                     <img src="/_optimized_svg/reddit.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.youtube.com/@jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/youtube.svg">
                 </a>
             </li>
         </ul>

@@ -6,7 +6,7 @@ tags: test
 plugins: mathjax mermaid
 -->
 
-# Feature test
+# Feature test / Memo
 
 ```python
 import functools
@@ -50,8 +50,9 @@ $$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
 [그래핑 문법](https://mermaid-js.github.io/mermaid/#/)  
 [그래핑 문법 2](https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax)
 
-렌더링 후엔 mermaid 코드블럭이 남지 않기에 해당 HTML 코드 사용할것.
+렌더링 후엔 mermaid 코드블럭이 남지 않기에 HTML 코드 사용할것.
 
+HTML:
 ```html
 <div class="mermaid">
 graph BT
@@ -62,6 +63,7 @@ graph BT
 </div>
 ```
 
+MD:
 ```mermaid
 graph BT
     id1(기초교양)-->전문교양
@@ -77,5 +79,13 @@ graph BT
     id3(일반교양)-->전문교양
     id4(교양선택)
 </div>
+
+<br>
+
+---
+
+임베드 테스트
+
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/goE8Xnwo0fI?si=ai0W-HB1s1T5vmsQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

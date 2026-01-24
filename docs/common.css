@@ -4,7 +4,7 @@
     font-family: JetBrains Mono;
     src:
         local("JetBrains Mono"),
-        url("/JetBrainsMono-Regular.woff2");
+        url("/_fonts/JetBrainsMono-Regular.woff2");
 }
 
 @font-face {
@@ -13,8 +13,8 @@
         local("Noto Sans"),
         local("Noto Sans KR"),
         local("Noto Sans JP"),
-        url("/noto-sans-kr-v38-korean_latin-regular.woff2"),
-        url("/noto-sans-jp-v55-japanese-regular.woff2");
+        url("/_fonts/noto-sans-kr-v38-korean_latin-regular.woff2"),
+        url("/_fonts/noto-sans-jp-v55-japanese-regular.woff2");
 }
 
 html {

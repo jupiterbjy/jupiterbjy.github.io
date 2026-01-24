@@ -1,6 +1,9 @@
 """
 Because pycharm's own html preview feature is broken and can't even load fonts in CSS,
-we doin' it manually
+we doin' it manually.
+
+Currently using dumb method to trunc dest path & copying all existing resources again,
+so if you use ramdisk
 """
 
 import pathlib
@@ -8,7 +11,7 @@ import pathlib
 import trio
 from selenium import webdriver
 
-from watchdog_file_events_m import start_watchdog, FileSystemEvent
+from watchdog_file_events_m import *
 from dumb_trio_server_O import serve_files
 import build
 
@@ -22,6 +25,9 @@ WATCH_DIRS = {
     ROOT / "md_pages",
 }
 SERVE_DIR = ROOT / "docs"
+
+## Used to ignore files & dirs with this suffix, e.g. `much_wow.py~`
+IGNORE_SUFFIX = "~"
 
 REFRESH_MIN_INTERVAL = 1
 
@@ -63,7 +69,72 @@ def refresh_all_tabs(wd: webdriver.Firefox):
     # wd.switch_to.window(cur_handle)
 
 
-# --- Logics ---
+def register_handlers(handler: CustomHandler):
+
+    src_roots = {ROOT / "html_parts", ROOT / "md_pages"}
+
+    def get_dirs(str_path: str) -> tuple[pathlib.Path | None, pathlib.Path | None]:
+        """Just a terribly named syntax sugar to reduce writing same thing 8 times.
+
+        Returns:
+            (file path, parent src root) - (None, None) if not within src roots
+        """
+
+        path = pathlib.Path(str_path)
+        parent = set(path.parents) & src_roots
+        return (path, parent.pop()) if parent else (None, None)
+
+    def remove_empty_dirs_in_dest():
+        # too lazy to manually reverse-traverse so gonna do this way
+
+        for root, _dn, _fn in SERVE_DIR.walk(top_down=False):
+            if root == SERVE_DIR:
+                return
+
+            if len(_dn) + len(_fn):
+                continue
+
+            root.rmdir()
+
+    def file_created_or_modified(event: FileSystemEvent):
+        path, parent = get_dirs(event.src_path)
+
+        if parent:
+            src_path = parent
+            dest_path = SERVE_DIR / path.relative_to(src_path)
+            src_path.copy(dest_path, preserve_metadata=True)
+
+    handler.register_on_file_creation(file_created_or_modified)
+    handler.register_on_file_modification(file_created_or_modified)
+
+    def file_deleted(event: FileSystemEvent):
+        path, parent = get_dirs(event.src_path)
+
+        if parent:
+            dest_path = SERVE_DIR / path.relative_to(parent)
+            dest_path.unlink(missing_ok=True)
+
+            remove_empty_dirs_in_dest()
+
+    handler.register_on_file_deletion(file_deleted)
+
+    def file_moved(event: FileSystemEvent):
+        src_path, src_parent = get_dirs(event.src_path)
+        moved_path, moved_parent = get_dirs(event.dest_path)
+
+        if src_parent and moved_parent:
+            dest_src = SERVE_DIR / src_path.relative_to(src_parent)
+            dest_moved = SERVE_DIR / moved_path.relative_to(moved_parent)
+
+            if dest_src != dest_moved:
+                dest_src.move(dest_moved)
+
+                remove_empty_dirs_in_dest()
+
+    handler.register_on_file_move(file_moved)
+
+
+# --- Drivers ---
 
 
 async def main():
@@ -76,24 +147,18 @@ async def main():
     driver = webdriver.Firefox()
     ANSI.print("Webdriver started", color="GREEN")
 
-    update_required = []
+    # should be fine for race condition
+    update_required = False
 
-    with start_watchdog(ROOT, True) as handler:
+    def on_update(event: FileSystemEvent):
+        nonlocal update_required
 
-        def on_update(event: FileSystemEvent):
-            # nonlocal update_required
+        eff_path = event.dest_path if event.dest_path else event.src_path
 
-            parents = set(pathlib.Path(event.src_path).parents)
+        if not eff_path[-1] != IGNORE_SUFFIX:
+            update_required = True
 
-            if not any(parents & WATCH_DIRS):
-                return
-
-            ANSI.print(
-                f"Reloading required due to {event.__class__.__name__} at {event.src_path}",
-                color="YELLOW",
-            )
-
-            update_required.append(None)
+    with start_watchdog(WATCH_DIRS, True) as handler:
 
         handler.register_global(on_update)
 
@@ -120,7 +185,7 @@ async def main():
                         await trio.to_thread.run_sync(refresh_all_tabs, driver)
 
                         ANSI.print("Update done!", color="GREEN")
-                        update_required.clear()
+                        update_required = False
 
             except KeyboardInterrupt:
                 ANSI.print("Stopping webdriver (may take a while)", color="YELLOW")
@@ -129,8 +194,6 @@ async def main():
 
                 nursery.cancel_scope.cancel()
 
-
-# --- Drivers ---
 
 if __name__ == "__main__":
     try:

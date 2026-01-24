@@ -4,7 +4,19 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Feature test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/template.css">
+    <link rel="stylesheet" href="/layout_post.css">
+
+    <!--
+    NOTE TO SELF:
+    https://stackoverflow.com/a/19590415/10909029
+    https://realfavicongenerator.net/
+    -->
+    <link rel="icon" type="image/png" href="/_favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/_favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/_favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/_favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="jupi.ghio" />
+    <link rel="manifest" href="/_favicon/site.webmanifest" />
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,7 +88,7 @@
                 <a class="common-text-bright" href="/posts/">Posts</a>
             </li>
             <li class="header-link">
-                <a class="common-text-bright" href="/toy_projects/">Toy Projects</a>
+                <a class="common-text-bright" href="/projects/">Toy Projects</a>
             </li>
             <li class="header-link">
                 <a class="common-text-bright" href="/about/">About</a>
@@ -115,7 +127,7 @@ layout: post
 tags: test
 plugins: mathjax mermaid
 -->
-<h1>Feature test</h1>
+<h1>Feature test / Memo</h1>
 <pre><code class="language-python">import functools
 from typing import Callable 
 
@@ -129,7 +141,7 @@ def wrapper(func: Callable):
     return inner
 </code></pre>
 <hr />
-<p><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics" target="_blank" rel="noopener noreferrer">레이텍 문법</a></p>
+<p><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">레이텍 문법</a></p>
 <pre><code class="language-ignorelang">$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
 </code></pre>
 <p>$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$</p>
@@ -143,9 +155,10 @@ def wrapper(func: Callable):
 <pre><code>인라인2 \\(f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...\\)
 </code></pre>
 <hr />
-<p><a href="https://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener noreferrer">그래핑 문법</a><br />
-<a href="https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax" target="_blank" rel="noopener noreferrer">그래핑 문법 2</a></p>
-<p>렌더링 후엔 mermaid 코드블럭이 남지 않기에 해당 HTML 코드 사용할것.</p>
+<p><a href="https://mermaid-js.github.io/mermaid/#/">그래핑 문법</a><br />
+<a href="https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax">그래핑 문법 2</a></p>
+<p>렌더링 후엔 mermaid 코드블럭이 남지 않기에 HTML 코드 사용할것.</p>
+<p>HTML:</p>
 <pre><code class="language-html">&lt;div class=&quot;mermaid&quot;&gt;
 graph BT
     id1(기초교양)--&gt;전문교양
@@ -154,6 +167,7 @@ graph BT
     id4(교양선택)
 &lt;/div&gt;
 </code></pre>
+<p>MD:</p>
 <pre><code class="language-mermaid">graph BT
     id1(기초교양)--&gt;전문교양
     id2(핵심교양)--&gt;전문교양
@@ -167,6 +181,9 @@ graph BT
     id3(일반교양)-->전문교양
     id4(교양선택)
 </div>
+<br>
+<hr />
+<p>임베드 테스트</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/goE8Xnwo0fI?si=ai0W-HB1s1T5vmsQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 </article>
@@ -206,7 +223,7 @@ graph BT
         margin: 0;
         padding: 0;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         place-items: center;
         gap: 1em;
     }
@@ -278,6 +295,11 @@ graph BT
             <li class="footer-link-li">
                 <a href="https://www.reddit.com/user/jupiterbjy/submitted/" target="_blank" rel="noopener noreferrer">
                     <img src="/_optimized_svg/reddit.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.youtube.com/@jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/youtube.svg">
                 </a>
             </li>
         </ul>
