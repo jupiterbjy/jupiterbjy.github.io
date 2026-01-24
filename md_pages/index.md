@@ -7,7 +7,7 @@ plugins: mathjax mermaid
 
 <div style="text-align: center;">
 <a href="https://www.pixiv.net/artworks/135037816" target="_blank" rel="noopener noreferrer">
-<img height="300" src="_small_iroseka_shinku_d.png" onmouseover="this.src='_small_iroseka_shinku_b.png'" onmouseout="this.src='_small_iroseka_shinku_d.png'">
+<img height="300" src="./_small_iroseka_shinku_d.png" onmouseover="this.src='./_small_iroseka_shinku_b.png'" onmouseout="this.src='./_small_iroseka_shinku_d.png'">
 </a>
 </div>
 <br>
