@@ -33,12 +33,14 @@ def sanitize_path(root: pathlib.Path, rel_path: str) -> pathlib.Path | None:
     """Sanitizes `subdir` relative to root.
 
     Args:
-        root: Root directory currently being served
+        root: Resolved root directory currently being served
         rel_path: Subdirectory relative to root
 
     Returns:
         Sanitized path or None if invalid
     """
+
+    rel_path = rel_path.split("?", 1)[0]
 
     p = root / pathlib.PurePosixPath(rel_path)
 
@@ -234,7 +236,7 @@ def _generate_dir_listing_html(
     """Generates directory listing HTML for given directory.
 
     Args:
-        root: Root directory currently being served
+        root: Resolved root directory currently being served
         sanitized_abs_sub_path: Absolute Subdirectory path that was sanitized
 
     Returns:
@@ -297,7 +299,7 @@ def _create_resp(req_dict: dict[str, str], root: pathlib.Path) -> tuple[str, byt
 
     Args:
         req_dict: Parsed request dict
-        root: Currently served root directory
+        root: Resolved root directory currently being served
 
     Returns:
         (Header str, Body bytes) tuple
@@ -332,13 +334,13 @@ def _create_resp(req_dict: dict[str, str], root: pathlib.Path) -> tuple[str, byt
 
 async def tcp_handler_verbose(
     stream: trio.SocketStream,
-    root: pathlib.Path = pathlib.Path("."),
+    root: pathlib.Path,
 ):
     """Handles incoming TCP connection. Yeah that's it
 
     Args:
         stream: `SocketStream` from `trio.serve_tcp()`
-        root: Root directory to serve
+        root: Resolved root directory currently being served
     """
 
     try:
@@ -370,13 +372,13 @@ async def tcp_handler_verbose(
 
 async def tcp_handler(
     stream: trio.SocketStream,
-    root: pathlib.Path = pathlib.Path("."),
+    root: pathlib.Path,
 ):
     """Handles incoming TCP connection. Yeah that's it
 
     Args:
         stream: `SocketStream` from `trio.serve_tcp()`
-        root: Root directory to serve
+        root: Resolved root directory currently being served
     """
 
     try:
@@ -395,7 +397,18 @@ async def serve_files(
     address: str = "localhost",
     port: int = 8000,
     verbose: bool = False,
+    task_status=trio.TASK_STATUS_IGNORED,
 ):
+    """Start serving files from given root directory.
+
+    Args:
+        root: Root directory to serve
+        address: yup
+        port: yup
+        verbose: Switches to verbose handler
+        task_status: Support for `trio.Nursery.start()`. Will return cancel scope of this task.
+    """
+
     # make sure root is absolute
     root = root.resolve()
 
@@ -408,10 +421,23 @@ async def serve_files(
 
     handler = tcp_handler_verbose if verbose else tcp_handler
 
+    # wrapping it inside cancel scope so we can cancel it better for external use
+    # and also as nursery since unlike asyncio trio start & serve forever in one method.
+    # https://stackoverflow.com/a/60675826/10909029
     try:
-        await trio.serve_tcp(partial(handler, root=root), port, host=address)
+        async with trio.open_nursery() as nursery:
+            # kinda pointless but gotta keep this name so I know when I need it, heh!
+            _listeners: list[trio.SocketListener] = await nursery.start(
+                partial(trio.serve_tcp, partial(handler, root=root), port, host=address)
+            )
+
+            # let others know server did start & give means to cancel this task specifically
+            task_status.started(nursery.cancel_scope)
+
     except* KeyboardInterrupt:
-        print("Server Stopped")
+        pass
+
+    print("Server Stopped")
 
 
 if __name__ == "__main__":
