@@ -18,7 +18,9 @@ plugins: mathjax mermaid
 
 <br>
 
-Dumb handcrafted site using my own build system mimicking < 1% of jekyll.
+Dumb handcrafted site using [my own static site generator](https://github.com/jupiterbjy/jupiterbjy.github.io), mimicking < 1% of jekyll
+
+
 
 <!--
 <div style="text-align: center;">

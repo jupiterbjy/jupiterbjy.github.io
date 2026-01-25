@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Post List</title>
+    <title>PIXI+pio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/layout_post.css">
 
@@ -108,23 +108,42 @@
 <br>
 
 <article class="markdown-body">
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+  mermaid.initialize({ startOnLoad:true })
+</script>
+
 <!-- HEADER
-title: Post List
-date: 2026-01-25 06:30:43 +0900
+title: PIXI+pio
+date: 2021-03-03 00:00:00 +0900
 layout: post
-list: yes
+tags: personal diary
+plugins: mermaid
 -->
-<h1>Post Listings</h1>
-<p>TODO: implement better build method &amp; better listing style</p>
-<p>TODO: implement inverted date ordering options</p>
-<h3><a href="2026-01-25-feature_test/">Feature test</a> / 2026-01-25</h3>
-<h3><a href="2021-03-12-cm_lec4/">012308-1 강의4</a> / 2021-03-12</h3>
-<h3><a href="2021-03-09-cm_lec3/">012308-1 강의3</a> / 2021-03-09</h3>
-<h3><a href="2021-03-08-cm_hw1/">012308-1 HW1</a> / 2021-03-08</h3>
-<h3><a href="2021-03-05-cm_lec2/">012308-1 강의2</a> / 2021-03-05</h3>
-<h3><a href="2021-03-07-personal_1/">PIXI+pio</a> / 2021-03-03</h3>
-<h3><a href="2021-03-03-univ_notes/">홍대 메모</a> / 2021-03-03</h3>
-<h3><a href="2021-03-02-cm_lec1/">012308-1 강의1</a> / 2021-03-02</h3>
+<h2>PIXI+pio</h2>
+<p>오늘 드디어 고쳤다. 이제 라이브 2D를 SDK2/3/4 상관없이 뭐든 갖다 넣을수 있다.</p>
+<p><img src="https://user-images.githubusercontent.com/26041217/110216190-09b4e400-7ef1-11eb-91bc-7a682bec6267.png" alt="image" /></p>
+<p><img src="https://raw.githubusercontent.com/jupiterbjy/jupiterbjy.github.io/main/docs/PaulPio_PIXI_Demo/demo.webp" alt="" /></p>
+<p>원 개발자님이 PR를 만들어보는게 어떻겠냐고 하셔서 만든 내용에 포함되는 부분이다.</p>
+<p>해당 PR <a href="https://github.com/Dreamer-Paul/Pio/pull/18">링크</a></p>
+<p>자바스크립트, HTML 둘다 처음쓰는 물건들이라 참 당황스럽고 막막했지만, 1주를 때려박으니 어떻게 돌파구를 만들어 냈다.</p>
+<p>이런 집요함이 과연 득이될지 독이될지는 모르겠다. 일단 난 해결했으니 그걸로 만족한다.
+결국 무슨 언어던 초기엔 API의 존재 자체를 모른다는 것이 진입장벽이 되는게 아닌가 싶다.</p>
+<p>해당 데모는 이 깃헙 페이지의 일부지만 아직 접근 방법은 없다. <a href="/paul_pio_pixi_demo/">이 링크</a> 를 타고
+들어가면 된다.</p>
+<p>이제 이 기본 테마를 고른걸 크게 후회하게될 레이아웃 개조가 남았다.</p>
+<p>생각중인 레이아웃은 대강 이모양.</p>
+<div class="mermaid">
+graph LR;
+    도움말페이지-->시작화면
+    시작화면-->라이브2D메뉴
+    개인일상-->라이브2D메뉴
+    데모페이지-->라이브2D메뉴
+    Brython-->라이브2D메뉴
+    강의메모
+</div>
+<p>라이브 2D를 거치지 않으면 아무거도 할수 없는 구조를 생각하고 있다. 사이드바보다 이게 더 깔끔할수도 있다고 생각한다.</p>
+<p>다만 이제 폰에서 콘텐츠 해상도가 실제 폰트 렌더링하는 해상도와는 따로 놀기 때문에 이부분은 좀 고민을 해봐야 겠다.</p>
 
 </article>
 

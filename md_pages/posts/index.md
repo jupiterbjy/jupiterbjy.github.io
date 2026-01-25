@@ -7,6 +7,8 @@ list: yes
 
 # Post Listings
 
-TODO: implement better build method
+TODO: implement better build method & better listing style
+
+TODO: implement inverted date ordering options
 
 <!-- LIST ./ -->

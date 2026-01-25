@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>012308-1 강의3</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/layout_post.css">
+
+    <!--
+    NOTE TO SELF:
+    https://stackoverflow.com/a/19590415/10909029
+    https://realfavicongenerator.net/
+    -->
+    <link rel="icon" type="image/png" href="/_favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/_favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/_favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/_favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="jupi.ghio" />
+    <link rel="manifest" href="/_favicon/site.webmanifest" />
+</head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    @import "/common.css";
+
+    .header-container {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+        margin: 1em;
+    }
+
+    .header-col {
+        display: flex;
+        place-items: center;
+    }
+
+    .header-col-title {
+        margin-left: 0.1em;
+    }
+
+    .header-col-link {
+        place-items: center end;
+    }
+
+    .header-col-link ol {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header-title {
+        font-size: 1.7rem;
+        font-weight: bold;
+    }
+
+    .header-link {
+        display: inline-block;
+    }
+
+    .header-link:after {
+        content: "/";
+        margin: 0 0.5em 0 0.5em;
+
+        color: #222222;
+
+        @media (prefers-color-scheme: dark) {
+            color: #bbbbbb;
+        }
+    }
+
+    .header-link:last-child:after {
+        content: "";
+        margin: 0 0.5em 0 0.2em;
+    }
+
+</style>
+
+<header class="header-container">
+    <div class="header-col header-col-title">
+        <a class="header-title common-text-bright" href="/">Very test site</a>
+    </div>
+    <div class="header-col"> </div>
+    <nav class="header-col header-col-link">
+        <ol>
+            <li class="header-link">
+                <a class="common-text-bright" href="/posts/">Posts</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/projects/">Toy Projects</a>
+            </li>
+            <li class="header-link">
+                <a class="common-text-bright" href="/about/">About</a>
+            </li>
+        </ol>
+    </nav>
+</header>
+
+
+<hr>
+
+<div style="text-align: center;">
+    <div class="common-text-dim">WORK_IN_PROGRESS 0</div>
+</div>
+
+<br>
+<br>
+
+<article class="markdown-body">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
+<!--
+REQUIRES FCKING LOCALHOST NOT 127.0.0.1 WHEN LOCAL TESTING, rip my 8 hours.
+In firefox all 127.0.0.1 requests will go unencrypted & HTTP/1.1,
+while localhost goes encrypted & HTTP/3 even.
+-->
+
+<!-- HEADER
+title: 012308-1 강의3
+date: 2021-03-09 17:05:00 +0900
+layout: post
+tags: personal lecture
+plugins: mathjax
+-->
+<h2>P1</h2>
+<h3>복습</h3>
+<ul>
+<li>
+<p>오차의 정의</p>
+<p>$x$: 정답 / $x^\ast$ 컴 계산결과 라고 할때<br />
+절대오차 = $|x-x^\ast|$<br />
+상대오차 = $|\frac{x-x^\ast}{x}|$<br />
+가 오차의 정의가 되겠다.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>컴의 한계</p>
+<p>0.1같은 10진수 컴 저장 불가. 부동소수점 오류</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>c코드</p>
+<p>클래스룸 강의록 6 -&gt; 시험에 연관</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>테일러 급수 변형유도
+<ul>
+<li>시험칠때 가장 먼저 적어야되는 식</li>
+</ul>
+</li>
+</ul>
+<p>$$★ f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2!}h^2+\frac{f'''(x)}{3!}h^3+...$$</p>
+<p>여기서 $f(x)$ 의 $x$ 는 센터 개념. 원본 $f(x)$ 의 경우엔 진짜 $x$.</p>
+<p>센터 개념의 $x$는 $-h&lt;x&lt;h$ 가 될 수 있다.</p>
+<hr />
+<ul>
+<li>
+<p>$h$ 의 <em>예</em></p>
+<p>대충 이렇게 잡는게 무난하더라 $h=|x|*10^{-3}$<br />
+$x=0$ 일때 귀찮으니까 대충 $h=10^{-3}$으로 잡아라.<br />
+시험에 이래야 되는 때가 있다.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>테일러 정리(Taylor theorem)</p>
+<p>자를때 발생하는 오차는 잘려나가는 첫째 항에 좌우된다.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li>
+<p>미분 1빠따 식</p>
+<ul>
+<li>위의 <em>테일러 급수 변형유도</em> 항목에서 본 식을 더 변형하면 아래 식이 됨.
+$$★ f'(x)=\frac{1}{h}[f(x+h)-f(x)]+\frac{1}{h}(-\frac{f''(x)}{2}h^2+...)$$</li>
+</ul>
+<p>오차의 크기는 h에 비례. 뒷 나머지 $\frac{1}{h}(-\frac{f''(x)}{2}h^2+...)$ 빅 오라고 부름.  $O(h)$ 로 써놓으면 된다. 자연히 오차의 크기는 $h$에 비례한다. 이것이 오차가 $h$ 냐 라는건 아니다.</p>
+<p>만약 자세한 오차를 구하라 하면 $O(h)$ 대신 해당 나머지 식을 그대로 써주면 된다.</p>
+</li>
+</ul>
+<h2>P2</h2>
+<h3>symbolic computation</h3>
+<ul>
+<li>
+<p>코드 올려둔 것 기준으로 설명</p>
+<p>입력 $f(x)=x^2$ → 출력 $f'(x)=2x$ 이 나오는 것은 <strong>symbolic computation</strong> 이라고 함. 옛날 AI 로 계산 가능.</p>
+<p>이런 심볼릭 계산은 수치해석이 아님. 숫자가 막 들어가 계산이 되는것이 수치해석.</p>
+</li>
+<li>
+<p>$f(x)=x^2$ 을 $x=1$ 에서 $h=10^{-3}$ 으로 미분할 때 (이건 수치해석)</p>
+<ul>
+<li>위의 미분 1빠따 식을 갖다 씀</li>
+</ul>
+<p>$$f'(x)=\frac{1}{h}[f(x+h)-f(x)]+O(h)$$</p>
+<p>여기서 $O(h)$ 는 무시하고 계산을 하면</p>
+<p>$$f'(1)=\frac{1}{10^{-3}}[(1+10^{-3})^2-1^2]=$$<br />
+$$=2+10^{-3}$$</p>
+<p>실제 답 $f'(1)=2$ 인걸 고려하면 오차가 $10^{-3}$ 이 된다. 이것이 $O(h)$ 가 됨.</p>
+</li>
+</ul>
+<h3>컴 제약</h3>
+<p>$$1 + 10^{-1000} = 1$$
+컴은 이렇게 계산함. 32비트가 할당된 부동소수점 자료형으로 계산 못함.
+수가 작으면 따라서 더해도 티가 안남.</p>
+<h2>P3</h2>
+<p>$$f(x)=x^2, x=1, h=10^{-1000}$$</p>
+<p>O(h) 오차크기는 h크기에 비례. 오차가 작을수록 좋음.</p>
+<p>아까 쓴 미분 1빠따 식 $f'(x)=\frac{1}{h}[f(x+h)-f(x)]+O(h)$ 으로 계산해보면</p>
+<p>$$=\frac{(1+10^{-1000})^2 - 1^2}{h}=\frac{1^2-1^2}{h}=0$$</p>
+<p>실제 계산은 답이 2임. 컴 미분결과는 반면 0.</p>
+<p>32bit 컴에서 $1+2^{-23} \neq 1$ 이지만 $1+2^{-24}=1$ 가 된다.</p>
+<p>$h$ 는 자기 문제에 따라 알아서 잘 잡아야 함. 그냥 아까 쓴대로 $h=|x|*10^{-3}$ 으로 생각하면 편하다. 바로 위 예제같은 경우엔 숫자가 너무 작아서 $h=|x|*10^{-3}$ 를 못쓰는 케이스.</p>
+<h2>P4</h2>
+<h3>미분 2빠따 식 유도</h3>
+<p>아까 변형식</p>
+<ol>
+<li>$f(x+h) = f(x) + f'(x)h + \frac{f''(x)}{2!}h^2 + \frac{f'''(x)}{3!}h^3+..$</li>
+</ol>
+<p>x는 -h와 h사이 센터로 생각하면</p>
+<ol start="2">
+<li>$f(x-h) = f(x) - f'(x)h + \frac{f''(x)}{2!}h^2 + \frac{f'''(x)}{3!}(-h)^3+..$</li>
+</ol>
+<p>2항부터 잘라냄.</p>
+<p>$$f(x+h) - f(x-h) = 2f'(x)h + \frac{2f'''(x)}{3!}h^3+...$$</p>
+<ul>
+<li>
+<p>미분 2빠따 식
+$$★ f'(x) = \frac{1}{2h}[f(x+h)-f(x-h)] + ( )h^2+...$$</p>
+<p>이경우 $O(h^2)$ 발생오차 크기는 $h^2$ 에 비례. 빅 오로 나타내라면 $O(h)$로 하면 됨.</p>
+</li>
+</ul>
+<p>1에 2를 더하면 반대로 짝수 프라임 항만 나옴.</p>
+<hr />
+<h3>위 식이 얼마나 좋은지 시연</h3>
+<ul>
+<li>문제: $f(x)=x^2$, $x=1$, $h=10^{-3}$</li>
+</ul>
+<p>$$f'(x) = \frac{1}{2*10^{-3}}[(1+10^{-3})^2-(1-10^{-3})^2] + O(h)+...$$</p>
+<p>$$=2 + 0$$</p>
+<p>이렇게 오차가 0으로 나오면 재수가 좋은것. 사족으로 $O(h^2)$ 이 $O(h)$ 보다 오차가 작음.</p>
+<p>아까 미분식1로 계산한 것에선 오차가 $10^{-3}$이 났는데 2식으론 오차가 0이 나옴.</p>
+<p>이 2빠따 식이 centered solbel 식이라고 이미지 처리하는데 실제 쓰이는 식임.</p>
+<h2>P5</h2>
+<h3>다른반 질문내용 - f''(x) 계산식 유도</h3>
+<p>아까 언급한 1 2 번 식을 더하면 생기는 식이다. 다시 식을 갖고오면</p>
+<ol>
+<li>
+<p>$f(x+h) = f(x) + f'(x)h + \frac{f''(x)}{2!}h^2 + \frac{f'''(x)}{3!}h^3+..$</p>
+</li>
+<li>
+<p>$f(x-h) = f(x) - f'(x)h + \frac{f''(x)}{2!}h^2 + \frac{f'''(x)}{3!}(-h)^3+..$</p>
+</li>
+</ol>
+<p>더하면</p>
+<p>$$f(x+h) + f(x-h) = 2f(x) + f''(x)h^2 + ( )h^4 + ...$$</p>
+<p>$h^4$에서 자른다고 생각하면</p>
+<ul>
+<li>또다른 2빠따 미분식</li>
+</ul>
+<p>$$★ f''(x)=\frac{1}{h^2}[f(x+h)-2f(x)+f(x-h)] + O(h^2)$$</p>
+<p>자동차 번호판 인식할 때 쓴다고 칸다.</p>
+<h3>질문이 없으니 기출 문제풀이</h3>
+<ul>
+<li><strong>$f'(x) \approx \frac{1}{4h}[f(x+3h) - f(x-h)]$ 의 에러 항을 자세히 쓰고 빅오로 나타내라.</strong></li>
+</ul>
+<p>테일러 변형식 다시 갖고오면</p>
+<p>$$f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2!}h^2+\frac{f'''(x)}{3!}h^3+...$$</p>
+<ol>
+<li>
+<p>$f(x+3h)=f(x)+3f'(x)h+...$</p>
+</li>
+<li>
+<p>$f(x-h)=f(x)-f'(x)h+...$</p>
+</li>
+</ol>
+<p>빼면</p>
+<p>$$f(x+3h)-f(x-h)=4f'(x)h+\frac{f''(x)}{2!}8h^2+....$$</p>
+<p>$$f'(x)=\frac{1}{4h}[f(x+3h) - f(x-h)] + ()h + ()h^2+...$$</p>
+<p>따라서 오차는 가장 큰 2번항을 따라 $O(h)$ 가 된다.</p>
+<h2>P6</h2>
+<h3>기출 풀이 2</h3>
+<ul>
+<li><strong>$f'(x) \cong \frac{1}{2h}[4f(x+h)-3f(x)-f(x+2h)]$ 를 테일러 급수식을 이용해 유도하라. 이후 에러를 빅오로 나타내라.</strong></li>
+</ul>
+<p>테일러 변형식 또 다시 갖고오면</p>
+<p>$$f(x+h)=f(x)+f'(x)h+\frac{f''(x)}{2!}h^2+\frac{f'''(x)}{3!}h^3+...$$</p>
+<p>푸는법 여러개. 이중 하나는 이것.</p>
+<ol>
+<li>
+<p>$4f(x+h)$ 를 구함.</p>
+<p>$$4f(x+h) = 4f(x)+4f'(x)h+\frac{4}{2!}f''(x)h^2+\frac{4f'''(x)}{3!}h^3+...$$</p>
+</li>
+<li>
+<p>$f(x+2h)$ 를 구함.
+$$f(x+2h)=f(x)+2f'(x)h+\frac{f''(x)}{2!}(2h)^2+\frac{f'''(x)}{3!}(2h)^3...$$</p>
+</li>
+<li>
+<p>뺌.
+$$4f(x+h)-f(x+2h)=3f(x)+2f'(x)h-\frac{4f'''(x)}{3!}h^3+...$$
+$$4f(x+h)-3f(x)-f(x+2h)=2f'(x)h-\frac{4f'''(x)}{3!}h^3+...$$
+$$\frac{1}{2h}[4f(x+h)-3f(x)-f(x+2h)]=f'(x) - \frac{2f'''(x)}{3!}h^2+...$$</p>
+<p>구하는것이 $f'(x)$ 이므로 나머지 첫항은 $-\frac{2f'''(x)}{3!}h^2$.</p>
+<p>따라서 답은 $O(h^2)$</p>
+</li>
+</ol>
+
+</article>
+
+<br>
+<br>
+
+<hr>
+
+<style>
+    @import "/common.css";
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1em 3em;
+        text-decoration: none;
+        font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+    }
+
+
+    .footer-email {
+        text-decoration: none;
+        /*color: inherit;*/
+        font-size: 0.8em;
+    }
+
+    .footer-col {
+        display: flex;
+    }
+
+    .footer-col-link {
+    }
+
+    .footer-col-link ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        place-items: center;
+        gap: 1em;
+    }
+
+    .footer-col-link ul li {
+    }
+
+    .footer-col-link ul li a img {
+        height: 2em;
+        vertical-align: middle;
+    }
+
+    .footer-col-desc {
+        justify-content: right;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 1em;
+    }
+
+    .footer-desc {
+        display: grid;
+        vertical-align: middle;
+        text-align: right;
+        place-items: center end;
+        font-size: 0.9em;
+    }
+
+    .footer-desc-icon {
+        height: 2.5em;
+    }
+
+    .footer-col-tail {
+        grid-column: 1 / span 2;
+        justify-content: center;
+        text-align: center;
+        font-size: 0.65em;
+    }
+</style>
+<footer class="footer-container">
+    <div class="footer-col footer-col-desc">
+        <div class="footer-desc">
+            Manekineko wishing everyone a fortune
+            <a class="footer-email common-text-dim" href="mailto:jupiterbjy@gmail.com" target="_blank" rel="noopener noreferrer">jupiterbjy@gmail.com</a>
+        </div>
+        <img class="footer-desc-icon common-greyscale-img" src="/_optimized_svg/manekineko.svg">
+    </div>
+    <div class="footer-col footer-col-link">
+        <ul class="footer-link-ul">
+            <li class="footer-link-li">
+                <a href="https://github.com/jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/github.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://steamcommunity.com/id/jupiterbjy/" target="_blank" rel="noopener noreferrer">
+                    <img class="common-greyscale-img" src="/_optimized_svg/steam.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.thingiverse.com/jupiterbjy/designs" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/thingiverse.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.pixiv.net/users/13823148" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/pixiv.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.reddit.com/user/jupiterbjy/submitted/" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/reddit.svg">
+                </a>
+            </li>
+            <li class="footer-link-li">
+                <a href="https://www.youtube.com/@jupiterbjy" target="_blank" rel="noopener noreferrer">
+                    <img src="/_optimized_svg/youtube.svg">
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer-col footer-col-tail">
+        Random minimal site handcrafted using PyCharm, Inkscape & Python
+    </div>
+</footer>
+
+
+</html>

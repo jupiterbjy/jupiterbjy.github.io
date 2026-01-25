@@ -1,12 +1,14 @@
 <!-- HEADER
 title: Feature test
-date: 2021-03-02 17:55:47 +0900
+date: 2026-01-25 18:42:00 +0900
 layout: post
 tags: test
 plugins: mathjax mermaid
 -->
 
 # Feature test / Memo
+
+최초작성: 2021-03-02 17:55:47 +0900
 
 ```python
 import functools

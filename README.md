@@ -1,25 +1,27 @@
 # Very site, much wow
 
-> Currently under heavy reconstruction from scratch
-
 Almost entirely handcrafted site, excluding:
 
 - fonts
 - mermaid.js (graph display)
 - mathjax (math display)
-- github-markdown-css (for rendered markdown since I'm still mere human)
+- github-markdown-css (for markdown styling since I'm still mere human)
 
-Uses homebuilt static site generator that only relies on `markdown-it-py`:
 
-- [build.py](build.py) - Actual generator
+## Scripts
+
+- [build.py](build.py) - Actual generator using `markdown-it-py`
 - [auto-rebuild.py](auto-rebuild.py) - For live-rebuild & refresh on file change using selenium
 - [dumb_trio_server_O.py](dumb_trio_server_O.py) - Handwritten (probably unsecure) HTTP server from [my other repo](https://github.com/jupiterbjy/ProjectIncubator/tree/main/SingleScriptTools#readme)
 - [watchdog_file_events.py](watchdog_file_events_m.py) - File watcher using watchdog, from [my other repo](https://github.com/jupiterbjy/ProjectIncubator/tree/main/SingleScriptTools#readme) 
 
 
-## But Whyyyyy!
+## [But Whyyyyy!](https://youtu.be/oiuyhxp4w9I)
 
 Sane person would be just using `jekyll` or something equivalent (like once I did).
-But I am the person
-who'd go hard way and reinvent the wheel from scratch - all the way down to HTTP server!
 
+But I am the person who'd go hard way and reinvent the wheel from scratch, all the way down to HTTP server!
+
+It's been painful but fun journey, and hope this somehow helps someone else.
+
+...though now I'm realizing I should've separated generator from site itself considering commit logs.

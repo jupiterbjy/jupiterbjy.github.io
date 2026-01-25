@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Feature test</title>
+    <title>홍대 메모</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/layout_post.css">
 
@@ -121,70 +121,211 @@ while localhost goes encrypted & HTTP/3 even.
 </script>
 
 <!-- HEADER
-title: Feature test
-date: 2021-03-02 17:55:47 +0900
+title: 홍대 메모
+date: 2021-03-03 00:00:00 +0900
 layout: post
-tags: test
+tags: personal note
 plugins: mathjax mermaid
 -->
-<h1>Feature test / Memo</h1>
-<pre><code class="language-python">import functools
-from typing import Callable 
-
-def wrapper(func: Callable):
-    
-    @functools.wraps(func)
-    def inner(*args):
-        print(*args)    
-        return func()
-    
-    return inner
-</code></pre>
+<h2>홍대 메모</h2>
+<h3>비고</h3>
+<ul>
+<li><em><strong>컴공개</strong></em> - 앨리스3 -&gt; 파이썬 (2019). 왜 항상 내 다음인건지 억울하니 내 과제라도 <a href="https://youtu.be/TcCWjfJ6kpE">링크</a>.</li>
+<li><em><strong>헌혈</strong></em> - 홍대는 어디서 헌혈하던 헌혈증을 학과사무실에 제출하면 15시간을 채워줌. 다만 취업 등 공적인 부분에서의 기록은 똑같이 4시간으로 기록됨.</li>
+<li><em><strong>인터넷프로그래밍</strong></em> - 안드로이드 수업. 저작권문제로 다른이름 사용.</li>
+</ul>
 <hr />
-<p><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">레이텍 문법</a></p>
-<pre><code class="language-ignorelang">$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
-</code></pre>
-<p>$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$</p>
-<blockquote>
-<p>달러기호가 자주쓰여 기본적으론 인라인으로 취급안함. 헤더에서 인라인 명시자 확인할것.</p>
-</blockquote>
-<p>인라인1 $f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$</p>
-<pre><code>인라인1 $f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$
-</code></pre>
-<p>인라인2 \(f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...\)</p>
-<pre><code>인라인2 \\(f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...\\)
-</code></pre>
-<hr />
-<p><a href="https://mermaid-js.github.io/mermaid/#/">그래핑 문법</a><br />
-<a href="https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax">그래핑 문법 2</a></p>
-<p>렌더링 후엔 mermaid 코드블럭이 남지 않기에 HTML 코드 사용할것.</p>
-<p>HTML:</p>
-<pre><code class="language-html">&lt;div class=&quot;mermaid&quot;&gt;
-graph BT
-    id1(기초교양)--&gt;전문교양
-    id2(핵심교양)--&gt;전문교양
-    id3(일반교양)--&gt;전문교양
-    id4(교양선택)
-&lt;/div&gt;
-</code></pre>
-<p>MD:</p>
-<pre><code class="language-mermaid">graph BT
-    id1(기초교양)--&gt;전문교양
-    id2(핵심교양)--&gt;전문교양
-    id3(일반교양)--&gt;전문교양
-    id4(교양선택)
-</code></pre>
+<h3>홍대 컴공 자료</h3>
+<ul>
+<li>
+<p>21년 2학년 1학기</p>
+<ul>
+<li><a href="https://imgur.com/rS5H02j">교양선택</a></li>
+<li><a href="https://imgur.com/rOse73Y">정규학기</a></li>
+<li><a href="https://imgur.com/jdxRVKg">전문교양</a></li>
+</ul>
+</li>
+<li>
+<p>교양 상속 구조</p>
+</li>
+</ul>
 <div class="mermaid">
-graph BT
-    id1(기초교양)-->전문교양
-    id2(핵심교양)-->전문교양
-    id3(일반교양)-->전문교양
-    id4(교양선택)
+graph LR;
+    기초교양-->전문교양;
+    핵심교양-->전문교양;
+    일반교양-->전문교양;
+    교양선택;
 </div>
-<br>
 <hr />
-<p>임베드 테스트</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/goE8Xnwo0fI?si=ai0W-HB1s1T5vmsQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<h3>드래곤볼 체크리스트 - (4/6)</h3>
+<table>
+<thead>
+<tr>
+<th>수강 여부</th>
+<th>영역</th>
+<th>주제</th>
+<th>강의</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>1</td>
+<td>언어와 철학</td>
+<td>서양철학 입문</td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>2</td>
+<td>사회와경제</td>
+<td>매스컴과 현대사회</td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>3</td>
+<td>역사와 문화</td>
+<td>한국사의 이해</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>4</td>
+<td>예술과 디자인</td>
+<td>미술의 이해</td>
+<td>예정</td>
+</tr>
+<tr>
+<td>x</td>
+<td>5</td>
+<td>제2외국어와 한문</td>
+<td>교양일본어</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>6</td>
+<td>법과 생활</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>7</td>
+<td>산업과 경영</td>
+<td>현대정보사회와 윤리</td>
+<td>예정</td>
+</tr>
+<tr>
+<td></td>
+<td>8</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>x</td>
+<td>(8)</td>
+<td>공학의 이해</td>
+<td>컴퓨터공학개론</td>
+<td>19학까지 전공학점</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>박스안에 체크박스를 못넣는다. 가히 기적.</p>
+</blockquote>
+<hr />
+<h3>수강신청 기억해둘것</h3>
+<ul>
+<li><em>과목별 수강신청</em> 에서 신청 가능여부 뜨니 <em>과목담기</em> 가서 보지 말것.</li>
+<li>수강신청을 <em>과목별 수강신청</em> 에서 시행한 경우 <em>과목 담기</em> 류 페이지들에서 뜨지 않음. <em>수강신청 철회하기</em> 가서 삭제할것.</li>
+</ul>
+<hr />
+<h3>홍대 컴공 18년도 졸업요건</h3>
+<p>총 132학점 이상(일반선택 포함) 이수해야 함.<br />
+비인증 과정 대상 <a href="https://imgur.com/mXnPKtF">졸업요건</a> 참고.</p>
+<table>
+<thead>
+<tr>
+<th>학점 대상</th>
+<th>요구 학점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSC</td>
+<td>18</td>
+</tr>
+<tr>
+<td>전문교양</td>
+<td>23</td>
+</tr>
+<tr>
+<td>전기영</td>
+<td>2</td>
+</tr>
+<tr>
+<td>전공</td>
+<td>50</td>
+</tr>
+<tr>
+<td>기타</td>
+<td>39</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>MSC: 18 학점</p>
+<ul>
+<li>과학 9점 / 수학 9점</li>
+</ul>
+<p>1학년때 <em>대수(1/2)</em> 및 <em>선형대수학</em> 을 수강했을 시 9점이 채워지므로 이 이상 필수적으로 이수해야 하는 수학 과목은 없음.
+2학년때 풀리는 MSC 수학들은 학점 필요시 추가적으로 수강가능.</p>
+<ul>
+<li>
+<p>전산 6점은 컴공 해당 없음.</p>
+</li>
+<li>
+<p>MSC 과학중  <em><strong>대물(1) 대화(1) 물실(1) 물화(1)</strong></em> 은 필수항목이고, 추가로 <em><strong>대물(2) 물실(2)</strong></em> / <em><strong>대화(2) 물화(2)</strong></em> 중 반드시 택1해서 수강해야 함.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>전문교양: 23 학점</p>
+<ul>
+<li>기초교양 6 학점</li>
+<li>일반교양, 핵심교양 영역(1~7영역)
+<ul>
+<li>7개 영역중 <em><strong>예술과 디자인</strong></em>, <em><strong>제2외국어와 한문</strong></em> 영역을 포함 6개를 선택해 각 영역별 1과목 이상 이수해야 함.</li>
+</ul>
+</li>
+<li>교양필수 / 교양선택은 최대 50 학점까지만 이수 가능.</li>
+</ul>
+</li>
+<li>
+<p>전공기초영어: 2 학점</p>
+<ul>
+<li>I / II 중 하나 필수적으로 이수해야 함. 영어 A0/+ 는 II, 그 외는 I에 해당.</li>
+</ul>
+</li>
+<li>
+<p>전공: 전필포함 50 학점</p>
+</li>
+<li>
+<p>기타 나머지 39 학점</p>
+</li>
+<li>
+<p>졸업논문</p>
+<ul>
+<li>현장실습 요건 폐지됨. 해당없음.</li>
+</ul>
+</li>
+</ul>
+<hr />
 
 </article>
 

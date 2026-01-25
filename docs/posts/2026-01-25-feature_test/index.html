@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-    <title>Post List</title>
+    <title>Feature test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" integrity="sha512-BrOPA520KmDMqieeM7XFe6a3u3Sb3F1JBaQnrIAmWg3EYrciJ+Qqe6ZcKCdfPv26rGcgTrJnZ/IdQEct8h3Zhw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/layout_post.css">
 
@@ -108,23 +108,84 @@
 <br>
 
 <article class="markdown-body">
-<!-- HEADER
-title: Post List
-date: 2026-01-25 06:30:43 +0900
-layout: post
-list: yes
+<script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
+<!--
+REQUIRES FCKING LOCALHOST NOT 127.0.0.1 WHEN LOCAL TESTING, rip my 8 hours.
+In firefox all 127.0.0.1 requests will go unencrypted & HTTP/1.1,
+while localhost goes encrypted & HTTP/3 even.
 -->
-<h1>Post Listings</h1>
-<p>TODO: implement better build method &amp; better listing style</p>
-<p>TODO: implement inverted date ordering options</p>
-<h3><a href="2026-01-25-feature_test/">Feature test</a> / 2026-01-25</h3>
-<h3><a href="2021-03-12-cm_lec4/">012308-1 강의4</a> / 2021-03-12</h3>
-<h3><a href="2021-03-09-cm_lec3/">012308-1 강의3</a> / 2021-03-09</h3>
-<h3><a href="2021-03-08-cm_hw1/">012308-1 HW1</a> / 2021-03-08</h3>
-<h3><a href="2021-03-05-cm_lec2/">012308-1 강의2</a> / 2021-03-05</h3>
-<h3><a href="2021-03-07-personal_1/">PIXI+pio</a> / 2021-03-03</h3>
-<h3><a href="2021-03-03-univ_notes/">홍대 메모</a> / 2021-03-03</h3>
-<h3><a href="2021-03-02-cm_lec1/">012308-1 강의1</a> / 2021-03-02</h3>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs"
+  mermaid.initialize({ startOnLoad:true })
+</script>
+
+<!-- HEADER
+title: Feature test
+date: 2026-01-25 18:42:00 +0900
+layout: post
+tags: test
+plugins: mathjax mermaid
+-->
+<h1>Feature test / Memo</h1>
+<p>최초작성: 2021-03-02 17:55:47 +0900</p>
+<pre><code class="language-python">import functools
+from typing import Callable 
+
+def wrapper(func: Callable):
+    
+    @functools.wraps(func)
+    def inner(*args):
+        print(*args)    
+        return func()
+    
+    return inner
+</code></pre>
+<hr />
+<p><a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics">레이텍 문법</a></p>
+<pre><code class="language-ignorelang">$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$
+</code></pre>
+<p>$$f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$$</p>
+<blockquote>
+<p>달러기호가 자주쓰여 기본적으론 인라인으로 취급안함. 헤더에서 인라인 명시자 확인할것.</p>
+</blockquote>
+<p>인라인1 $f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$</p>
+<pre><code>인라인1 $f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...$
+</code></pre>
+<p>인라인2 \(f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...\)</p>
+<pre><code>인라인2 \\(f(x) = f(c) + f'(c)(x - c) + \frac{f''(c)(x - c)^2}{2!} + ...\\)
+</code></pre>
+<hr />
+<p><a href="https://mermaid-js.github.io/mermaid/#/">그래핑 문법</a><br />
+<a href="https://mermaid-js.github.io/mermaid/#/flowchart?id=flowcharts-basic-syntax">그래핑 문법 2</a></p>
+<p>렌더링 후엔 mermaid 코드블럭이 남지 않기에 HTML 코드 사용할것.</p>
+<p>HTML:</p>
+<pre><code class="language-html">&lt;div class=&quot;mermaid&quot;&gt;
+graph BT
+    id1(기초교양)--&gt;전문교양
+    id2(핵심교양)--&gt;전문교양
+    id3(일반교양)--&gt;전문교양
+    id4(교양선택)
+&lt;/div&gt;
+</code></pre>
+<p>MD:</p>
+<pre><code class="language-mermaid">graph BT
+    id1(기초교양)--&gt;전문교양
+    id2(핵심교양)--&gt;전문교양
+    id3(일반교양)--&gt;전문교양
+    id4(교양선택)
+</code></pre>
+<div class="mermaid">
+graph BT
+    id1(기초교양)-->전문교양
+    id2(핵심교양)-->전문교양
+    id3(일반교양)-->전문교양
+    id4(교양선택)
+</div>
+<br>
+<hr />
+<p>임베드 테스트</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/goE8Xnwo0fI?si=ai0W-HB1s1T5vmsQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 </article>
 
