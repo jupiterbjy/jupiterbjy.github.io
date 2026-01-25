@@ -26,14 +26,15 @@ WATCH_DIRS = {
 }
 SERVE_DIR = ROOT / "docs"
 
-## Used to ignore files & dirs with this suffix, e.g. `much_wow.py~`
+# Used to ignore files & dirs with this suffix, e.g. `much_wow.py~` that pycharm generates
 IGNORE_SUFFIX = "~"
 
-REFRESH_MIN_INTERVAL = 1
+REFRESH_MIN_INTERVAL_SEC = 1
 
 ADDR = "127.0.0.1"
 PORT = 8000
-URL = f"http://{ADDR}:{PORT}/"
+URL = f"http://{ADDR}:{PORT}"
+# ^ I guess not having trailing slash would mimic github io better..?
 
 
 # --- Utilities ---
@@ -155,7 +156,7 @@ async def main():
 
         eff_path = event.dest_path if event.dest_path else event.src_path
 
-        if not eff_path[-1] != IGNORE_SUFFIX:
+        if eff_path[-1] == IGNORE_SUFFIX:
             update_required = True
 
     with start_watchdog(WATCH_DIRS, True) as handler:
@@ -167,15 +168,15 @@ async def main():
             # proc: trio.Process = await nursery.start(
             #     partial(trio.run_process, "python3 -m http.server", cwd=SERVE_DIR)
             # )
-            # print(f"Server started at {URL}")
-            nursery.start_soon(serve_files, SERVE_DIR)
+
+            server_scope = await nursery.start(serve_files, SERVE_DIR)
 
             # since it blocks server startup has to be delegated
             await trio.to_thread.run_sync(driver.get, URL)
 
             try:
                 while True:
-                    await trio.sleep(REFRESH_MIN_INTERVAL)
+                    await trio.sleep(REFRESH_MIN_INTERVAL_SEC)
 
                     if update_required:
                         ANSI.print("Rebuilding site", color="YELLOW")
@@ -192,7 +193,7 @@ async def main():
                 driver.quit()
                 ANSI.print("Webdriver stopped", color="GREEN")
 
-                nursery.cancel_scope.cancel()
+                server_scope.cancel()
 
 
 if __name__ == "__main__":

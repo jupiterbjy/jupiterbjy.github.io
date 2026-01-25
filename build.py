@@ -21,8 +21,10 @@ f+ 0 / f- 9 / d+ 0 / d- 0
 :Author: jupiterbjy@gmail.com
 """
 
+import datetime
 import re
 import pathlib
+import bisect
 from string import Template
 from typing import TypedDict
 
@@ -48,6 +50,10 @@ HTML_PARTS: dict[str, str] = {}
 # MD Pages
 MD_PAGE_ROOT = ROOT / "md_pages"
 
+# Sync ignored file extensions
+SYNC_EXCLUDED_EXTS = {".html", ".md"}
+# SYNC_EXCLUDED_EXTS = {".html", ".md", ".py"}
+
 # KEYWORD_PREFIX = "<!-- include "
 # INCLUDE_RE = re.compile(r"^<!-- include (\S*) -->$")
 
@@ -61,7 +67,7 @@ DOC_LISTING_RE = re.compile(r"\n<!-- LIST\s([\S\s]*?)\s-->")
 # If dir starts with this prefix, it won't be listed when generating listing within post.
 LISTING_IGNORED_DIR_PREFIX = "_"
 
-LISTING_FORMAT = "### [{title}]({url})"
+LISTING_FORMAT = "### [{title}]({url}) / {date}\n"
 
 
 # --- Utilities ---
@@ -115,7 +121,7 @@ def render_blank_link(self, tokens, idx, options, env):
 
 class DocHeader(TypedDict):
     title: str
-    date: str
+    date: datetime.datetime | None
     layout: str
     tags: list[str]
     plugins: list[str]
@@ -124,7 +130,7 @@ class DocHeader(TypedDict):
 def doc_header_parser(matched_str: str) -> DocHeader:
     """Parses header content from matched string"""
 
-    result = DocHeader(title="", date="", layout="post", tags=[], plugins=[])
+    result = DocHeader(title="", date=None, layout="post", tags=[], plugins=[])
 
     for line in matched_str.splitlines():
         try:
@@ -140,7 +146,10 @@ def doc_header_parser(matched_str: str) -> DocHeader:
                 result["title"] = val
 
             case "date":
-                result["date"] = val
+                try:
+                    result["date"] = datetime.datetime.fromisoformat(val)
+                except ValueError:
+                    print(f"Failed to parse date string '{val}'")
 
             case "layout":
                 result["layout"] = val
@@ -181,8 +190,9 @@ def replace_listing(raw_html: str, current_dir: pathlib.Path) -> str:
         print("Ignoring invalid listing path:", raw_path)
         return raw_html
 
+    # fetch valid post directories & create clickable entries for it
     # TODO: shield for quote-required path naming
-    parts: list[str] = [raw_html[:start]]
+    post_entries: list[tuple[datetime.datetime, str]] = []
 
     for path in listing_root.iterdir():
         if not path.is_dir() or path.stem.startswith(LISTING_IGNORED_DIR_PREFIX):
@@ -204,13 +214,23 @@ def replace_listing(raw_html: str, current_dir: pathlib.Path) -> str:
 
         header = doc_header_parser(header_matched.group(1))
 
-        parts.append(
-            LISTING_FORMAT.format(
-                title=header["title"],
-                url=path.relative_to(current_dir).as_posix() + "/",
-            )
+        # TODO: Add tagging?
+        post_entry = LISTING_FORMAT.format(
+            title=header["title"],
+            url=path.relative_to(current_dir).as_posix() + "/",
+            date=(
+                header["date"].strftime("%Y-%m-%d")
+                if header["date"]
+                else "DATE_FMT_ERR"
+            ),
         )
 
+        # make sure insertion is ordered
+        bisect.insort(post_entries, (header["date"], post_entry), key=lambda x: x[0])
+
+    # combine parts back since it's cheaper than replacement
+    parts: list[str] = [raw_html[:start]]
+    parts.extend(entry for _, entry in post_entries[::-1])
     parts.append(raw_html[end:])
 
     return "\n".join(parts)
@@ -288,7 +308,7 @@ def copy_dependencies():
     # synchronize dangling files
     print_changes(
         multi_src_sync_dir(
-            [MD_PAGE_ROOT, HTML_PARTS_ROOT], DEST_ROOT, {".html", ".md", ".py"}
+            [MD_PAGE_ROOT, HTML_PARTS_ROOT], DEST_ROOT, SYNC_EXCLUDED_EXTS
         )
     )
 
