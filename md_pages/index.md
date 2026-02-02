@@ -2,7 +2,7 @@
 title: About
 date: 2025-12-28 05:00:00 +0900
 layout: post
-plugins: mathjax mermaid
+plugins:
 -->
 
 <div style="text-align: center;">
@@ -15,6 +15,9 @@ plugins: mathjax mermaid
 > _『 お前の明日が、今日よりも、ずっとずっと、楽しいことに溢れてるようにって、祈ってるよ 』_  
 > _『 I hope that, your tomorrow is overflowing with more joy and fun than today ever was. 』_  
 > _『 너의 내일이, 오늘보다도 훨씬 더 즐거운 일들로 넘쳐흐르기를, 바라고 있어 』_  
+> 
+> \- [_Nikaido Shinku_](shinku/) -
+
 
 <br>
 
