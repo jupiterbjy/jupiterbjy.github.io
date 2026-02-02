@@ -1,5 +1,6 @@
 // https://stackoverflow.com/questions/7373081
 
+// Why this existed? I don't remember
 
 function load_html() {
     let iframe_source = document.getElementById("brython_html_area")

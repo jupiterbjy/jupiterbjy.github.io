@@ -3,20 +3,50 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Brython Console</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js">
+    </script>
+
+    <style>
+        .interactive_brython {
+            background-color:#000;
+            color:#fff;
+            font-family:'Oxygen Mono', Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+            font-size:14px;
+            overflow:auto
+        }
+
+        .header-container {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            text-decoration: none;
+            font-family: "JetBrains Mono", "Noto Sans", sans-serif;
+            margin: 1em;
+        }
+    </style>
 </head>
 <body>
-<div>
-    TODO: fix this 5yrs old mess
+
+<div class="header-container">
+    <div>
+        TODO: fix this 5yrs old mess
+    </div>
+    <a href="../" style="text-align: right">Go back</a>
 </div>
-<iframe id="brython_html_area" style="width: 100%; height: 100%; border: none;">
-</iframe>
 
-<script src="console_html_edit.js"></script>
-<script>
-    pio_alignment = "right"
+<div id="text_area_wrapper" style="width: 100%; height: 100%;">
+    <div class="interactive_brython" id="con_" contenteditable="true"
+         style="width: 100%; height: 100%; resize: none">
+    </div>
+</div>
+
+<script type="text/python">
+    from interpreter import Interpreter
+
+    Interpreter("con_")
 </script>
-
-<!-- TODO: add memo area -->
 
 </body>
 </html>
