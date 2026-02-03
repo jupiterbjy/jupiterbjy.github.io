@@ -38,5 +38,13 @@ plugins:
 | ![](_res/cyan_haro_hawayu.png) | ![](_res/oc3_rough.png) |
 |---------------------------|--------------------|
 
+| ![](_res/l2d_fanart_0.webp)                                                                                                                                                                                                                                                | <img height=300px src="_res/l2d_fanart_1.webp">                                                                                                             |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [repo](https://github.com/jupiterbjy/Live2DPractice-Cyannyan) / [web demo](https://jupiterbjy.github.io/SimpleLive2dViewer/?https://cdn.jsdelivr.net/gh/jupiterbjy/Live2DPractice-Cyannyan/CyanSDLowRes/CyanSD.model3.json) / [youtube demo](https://youtu.be/ByN_9UUdmSQ) | |
+
+| ![](_res/l2d_fanart_2.png) | ![](_res/l2d_fanart_3.png) |
+|-----------------------|-----------------------|
+
+
  ![](_res/microwave_cat.webp)
  
