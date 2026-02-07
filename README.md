@@ -25,3 +25,10 @@ But I am the person who'd go hard way and reinvent the wheel from scratch, all t
 It's been painful but fun journey, and hope this somehow helps someone else.
 
 ...though now I'm realizing I should've separated generator from site itself considering commit logs.
+
+
+## TODO for self
+
+- Tag system
+- Better way to edit post (I mean, pycharm do works but something better)
+- Archive bunch more VN song lyrics
